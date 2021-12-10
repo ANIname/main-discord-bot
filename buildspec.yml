@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - npm ci
+
+  deploy:
+    commands:
+      - IS_OFFLINE=false npx serverless deploy --verbose
