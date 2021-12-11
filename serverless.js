@@ -14,6 +14,7 @@ const {
   IS_DEBUG_ENABLED,
   PROJECT_NAME,
   AWS_PROFILE,
+  AWS_REGION,
   IS_OFFLINE,
   STACK_NAME,
   STAGE,
@@ -54,7 +55,7 @@ const {
   config.lambdaHashingVersion = 20_201_221;
 
   config.stage  = STAGE;
-  config.region = 'eu-central-1';
+  config.region = AWS_REGION;
 
   config.runtime           = `nodejs${NODE_ENGINE_VERSION}`;
   config.stackName         = STACK_NAME;

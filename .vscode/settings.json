@@ -4,6 +4,7 @@
     "nosources",
     "sonarjs",
     "stroustrup",
+    "tweetnacl",
     "websockets"
   ],
   "editor.codeActionsOnSave": {

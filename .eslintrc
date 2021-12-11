@@ -39,6 +39,7 @@
 
   "rules": {
     "no-multi-spaces": "off",
+    "no-param-reassign": ["error", { "props": false }],
     "no-use-before-define": "off",
 
     "unicorn/prefer-module": "off",

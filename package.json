@@ -1,5 +1,5 @@
 {
-  "name": "aniname-main-discord-bot",
+  "name": "main-discord-bot",
   "version": "1.0.0",
   "description": "Discord bot for our discord server: https://discord.gg/ADFYZtJ",
   "keywords": [
@@ -60,6 +60,9 @@
   },
   "dependencies": {
     "directory-import": "^2.3.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "simple-composer": "^1.0.3",
+    "tweetnacl": "^1.0.3",
+    "uuid": "^8.3.2"
   }
 }
