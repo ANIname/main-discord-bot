@@ -1,22 +1,29 @@
+require('./utils/prepare-environment-variables');
+
 const importDir = require('directory-import');
 
 const camelCase = require('lodash/camelCase');
 const forEach   = require('lodash/forEach');
 const pick      = require('lodash/pick');
 
-const packageFile        = require('./package.json');
 const setIfNotExists     = require('./utils/set-if-not-exists');
 const consoleTableObject = require('./utils/console-table-object');
 
-const { IS_OFFLINE, STAGE = 'development' } = process.env;
-
-const isDebugEnabled = IS_OFFLINE !== 'false' || STAGE === 'development';
+const {
+  NODE_ENGINE_VERSION,
+  IS_DEBUG_ENABLED,
+  PROJECT_NAME,
+  AWS_PROFILE,
+  IS_OFFLINE,
+  STACK_NAME,
+  STAGE,
+} = process.env;
 
 // Base configuration
 (() => {
   const config = module.exports;
 
-  config.service                             = packageFile.name;
+  config.service                             = PROJECT_NAME;
   config.frameworkVersion                    = '2';
   config.configValidationMode                = 'error';
   config.deprecationNotificationMode         = 'error';
@@ -49,17 +56,17 @@ const isDebugEnabled = IS_OFFLINE !== 'false' || STAGE === 'development';
   config.stage  = STAGE;
   config.region = 'eu-central-1';
 
-  config.runtime           = `nodejs${packageFile.engines.node}`;
-  config.stackName         = `${packageFile.name}-${STAGE}`;
-  config.apiName           = `${packageFile.name}-${STAGE}-http-api`;
-  config.websocketsApiName = `${packageFile.name}-${STAGE}-websocket-api`;
+  config.runtime           = `nodejs${NODE_ENGINE_VERSION}`;
+  config.stackName         = STACK_NAME;
+  config.apiName           = `${STACK_NAME}-http-api`;
+  config.websocketsApiName = `${STACK_NAME}-websocket-api`;
 
   config.logs = {
-    restApi:   { level: isDebugEnabled === 'true' ? 'INFO' : 'ERROR' },
-    websocket: { level: isDebugEnabled === 'true' ? 'INFO' : 'ERROR' },
+    restApi:   { level: IS_DEBUG_ENABLED === 'true' ? 'INFO' : 'ERROR' },
+    websocket: { level: IS_DEBUG_ENABLED === 'true' ? 'INFO' : 'ERROR' },
   };
 
-  if (IS_OFFLINE !== 'false') config.profile = packageFile.name;
+  if (IS_OFFLINE !== 'false') config.profile = AWS_PROFILE;
 
   consoleTableObject('⚡ Serverless Provider Configuration:', config);
 })();
@@ -79,7 +86,6 @@ const isDebugEnabled = IS_OFFLINE !== 'false' || STAGE === 'development';
 
   config.hooks = {
     'aws:common:validate:validate': 'sls create-cert', // Create certificate for api domain before deploy
-    'aws:deploy:finalize:cleanup':  'sls prismaMigrateDeploy', // Migrate prisma migrations after deploy
   };
 
   config.commands = {
@@ -95,7 +101,7 @@ const isDebugEnabled = IS_OFFLINE !== 'false' || STAGE === 'development';
   const providerConfig = setIfNotExists(module.exports, 'provider.deploymentBucket', {}).provider.deploymentBucket;
   const customConfig   = setIfNotExists(module.exports, 'custom.deploymentBucket', {}).custom.deploymentBucket;
 
-  providerConfig.name = `${packageFile.name}-deployment-bucket`;
+  providerConfig.name = `${STACK_NAME}-deployment-bucket`;
 
   providerConfig.maxPreviousDeploymentArtifacts = 1;
   customConfig.blockPublicAccess                = true;
