@@ -51,10 +51,10 @@
     "serverless-domain-manager": "^5.1.5",
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-jetpack": "^0.11.1",
-    "serverless-offline": "^8.2.0",
+    "serverless-offline": "^12.0.3",
     "serverless-plugin-scripts": "^1.0.2",
     "serverless-prune-plugin": "^1.6.1",
-    "serverless-s3-local": "^0.6.20",
+    "serverless-s3-local": "^0.7.1",
     "serverless-webpack": "^5.5.5",
     "webpack-node-externals": "^3.0.0"
   },
