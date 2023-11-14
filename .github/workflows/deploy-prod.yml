@@ -13,16 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: Setup SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "StrictHostKeyChecking no" > ~/.ssh/config
-          echo "$SERVER_KEY" > ~/.ssh/id_rsa
-          echo "$SERVER_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
-          chmod 600 ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa.pub
-        env: 
-          SERVER_KEY: ${{ secrets.SERVER_KEY }}
+      - name: Add key to known_hosts
+        run:  
+          mkdir -p ~/.ssh &&
+          echo "185.211.6.14 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfugwYy9vnBJtqV2Xx5XgHxtZY2zm1LZcChH/kPV3aj/XkpYgGxfarQqk/l64UnDMgd1ybGWUMOL8YY6nRNieKnX1KeUk14zVWh5vf7BgNF8hAc9+P/wusYDDniJMuDcXsC9/Q+lK3mgsYb2Th8KLj/d5o5QYUzIC8gCYihHAde18Azgrdpqp77svVW+4SUJGx48swIhev41c584Fx+lqcBhnwbmhhAbikyyogMINBcUduPTQNezCk1BNhZtlnwmkU+Ywq1SM5bOXG1LS3w4hw3S6yoYSh3LUyl4OACupc/lGZYlvU9zyiHqWjmNt+nQlJJYYb5ofFBYGkMvcnxlm209jZndOy1S44u/zAUNBGcGuIZ7lcbTc4IAfEGeQvRRlSEGgaWzYQZBI7ssONZgkmHV1kFX7HNmxeSHPGESet+ftKgAeqku/EYfAOL2eT1kQmuenQDAoZigiWn4vA9hS6sX2Icgdvypv9Yk6ab7+rYBtodKjN9ZAcGmjT6rUiAXuv6LEsKD5PMXCbG1Z1VumFtKuWOZG8e8xjcOLjyP7wAJy0qLq7sfumCuCe1W+BjFRj34oeOkxHxTJkUHNHZ81gSOLO1ziVbcUnEACxb/iTj27yZKqTC6IC6MJt9gj3EZX0X5jUlqANirY8hQ5m8AlEB1UWSAolGNwp62PSpdzAcQ==" >> ~/.ssh/known_hosts &&
+          echo "185.211.6.14 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFzThbFiui0AON5CrWZ0ZKDir05K+W71O08ukffwU8C6qCffMjfmnWCaG8SgbgjoMLP5NfpPuTpA/nPwFJ50Jxk=" >> ~/.ssh/known_hosts &&
+          echo "185.211.6.14 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFOAGNww0E/z6hUdU5qtre2MhPnKYdwkytfyLOCi2uuW" >> ~/.ssh/known_hosts
+      
 
       - name: Install global dependencies
         run: |
