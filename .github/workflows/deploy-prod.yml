@@ -12,6 +12,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "StrictHostKeyChecking no" > ~/.ssh/config
+          echo "$SERVER_KEY" > ~/.ssh/id_rsa
+          echo "$SERVER_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa.pub
+        env: 
+          SERVER_KEY: ${{ secrets.SERVER_KEY }}
+
+      - name: Install global dependencies
+        run: |
+          npm install -g typescript
+          npm install -g pm2
 
       - name: Deploy
         uses: appleboy/ssh-action@master
@@ -20,9 +36,7 @@ jobs:
           username: root
           key: ${{ secrets.SERVER_KEY }}
           script: |
-            mkdir -p ~/.ssh
-            echo "${{ secrets.SERVER_SSH_FINGERPRINT }}" >> ~/.ssh/known_hosts
-            rsync -r $GITHUB_WORKSPACE/ root@${{ secrets.SERVER_HOST }}:main-discord-bot
+            rsync -ra $GITHUB_WORKSPACE/ root@${{ secrets.SERVER_HOST }}:main-discord-bot
             cd main-discord-bot
             npm install
             npx tsc
