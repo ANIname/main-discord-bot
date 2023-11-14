@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Checkout
@@ -16,11 +17,12 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.prod.SERVER_HOST }}
+          host: ${{ secrets.SERVER_HOST }}
           username: root
-          key: ${{ secrets.prod.SERVER_PASSWORD }}
+          key: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            rsync -r $GITHUB_WORKSPACE/ root@${{ secrets.prod.SERVER_HOST }}:main-discord-bot
+            echo "Deploying to ${{ secrets.SERVER_HOST }}"
+            rsync -r $GITHUB_WORKSPACE/ root@${{ secrets.SERVER_HOST }}:main-discord-bot
             cd main-discord-bot
             npm install
             npx tsc
