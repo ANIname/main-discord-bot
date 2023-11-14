@@ -1,64 +1,48 @@
 {
-  "env": {
-    "jest/globals": true,
-    "node": true,
-    "es6": true
-  },
+  "parser": "@typescript-eslint/parser",
 
   "parserOptions": {
-    "ecmaVersion": 2021,
-		"sourceType": "module"
+    "project": "./tsconfig.json"
   },
 
-  "extends": [
-    "airbnb-base",
-    "plugin:jsdoc/recommended",
-    "plugin:lodash/recommended",
-    "plugin:import/recommended",
-    "plugin:sonarjs/recommended",
-    "plugin:unicorn/recommended",
-    "plugin:security/recommended",
-    "plugin:eslint-comments/recommended",
-    "plugin:jsonc/recommended-with-json"
-  ],
-
   "plugins": [
-    "write-good-comments",
-    "align-assignments",
-    "no-secrets",
-    "security",
-    "sonarjs",
-    "unicorn",
-    "import",
+    "@typescript-eslint",
     "jsdoc",
-    "lodash",
-    "jest"
+    "sonarjs",
+    "security",
+    "promise",
+    "unicorn",
+    "eslint-comments",
+    "optimize-regex",
+    "no-use-extend-native",
+    "simple-import-sort"
   ],
 
-  "ignorePatterns": ["package*.json"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:jsdoc/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:security/recommended",
+    "plugin:promise/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:eslint-comments/recommended",
+    "plugin:optimize-regex/recommended",
+    "plugin:no-use-extend-native/recommended"
+  ],
 
   "rules": {
-    "no-multi-spaces": "off",
-    "no-param-reassign": ["error", { "props": false }],
-    "no-use-before-define": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
 
-    "unicorn/prefer-module": "off",
+    "@typescript-eslint/no-unsafe-assignment": "error",
+    "@typescript-eslint/no-empty-interface": ["error", { "allowSingleExtends": true }],
 
-    "import/prefer-default-export": "off",
+    "unicorn/prefer-top-level-await": "off"
+  },
 
-    "security/detect-object-injection": "off",
-    "security/detect-child-process": "off",
-    "security/detect-non-literal-fs-filename": "off",
-    "security/detect-unsafe-regex": "off",
-
-    "brace-style": ["error", "stroustrup"],
-    "max-len": ["error", { "code": 120, "ignoreComments": true, "ignorePattern": ".*require.*" }],
-    "no-console": ["error", { "allow": ["info", "warn", "error", "table", "group", "groupEnd"] }],
-    "key-spacing": ["error", { "align": { "beforeColon": false, "afterColon": true, "on": "value" } }],
-    "align-assignments/align-assignments": ["error", { "requiresOnly": false } ],
-
-    "no-secrets/no-secrets": "error",
-
-    "write-good-comments/write-good-comments": "warn"
-  }
+  "ignorePatterns": ["node_modules", "dist", "**/*.js", "**/*.mjs"]
 }

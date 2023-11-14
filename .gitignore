@@ -1,6 +1,8 @@
-# Dependencies
+build
+dist
+
 node_modules
 
-# Outputs
-.serverless
-.webpack-output
+# Exclude all .env files except .env.example
+.env**
+!.env.example
