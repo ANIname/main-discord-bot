@@ -20,6 +20,8 @@ jobs:
           username: root
           key: ${{ secrets.SERVER_KEY }}
           script: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SERVER_SSH_FINGERPRINT }}" >> ~/.ssh/known_hosts
             rsync -r $GITHUB_WORKSPACE/ root@${{ secrets.SERVER_HOST }}:main-discord-bot
             cd main-discord-bot
             npm install
