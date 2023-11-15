@@ -16,7 +16,12 @@ jobs:
 
       - name: Log secrets
         run: |
+          echo ${{ secrets }}
           echo ${{ secrets.SERVER_HOST }}
+          echo ${{ secrets.SERVER_KEY }}
+          echo ${{ secrets.SERVER_PASSWORD }}
+          echo ${{ secrets.SERVER_SSH_FINGERPRINT }}
+          echo ${{ secrets.DISCORD_BOT_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
