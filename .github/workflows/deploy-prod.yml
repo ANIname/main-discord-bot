@@ -27,13 +27,8 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
-            git clone git@github.com:ANIname/main-discord-bot.git
             cd main-discord-bot
+            git pull
             npm install
-          # script: |
-          #   cd /var
-          #   git clone git@github.com:ANIname/main-discord-bot.git
-          #   cd main-discord-bot
-          #   npm install
-          #   npx tsc
-          #   pm2 start npm --name "main-discord-bot" -- run start
+            npx tsc
+            pm2 start npm --name "main-discord-bot" -- run start
