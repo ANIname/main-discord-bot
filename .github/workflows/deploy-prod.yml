@@ -16,7 +16,6 @@ jobs:
 
       - name: Log secrets
         run: |
-          echo ${{ secrets }}
           echo ${{ secrets.SERVER_HOST }}
           echo ${{ secrets.SERVER_KEY }}
           echo ${{ secrets.SERVER_PASSWORD }}
