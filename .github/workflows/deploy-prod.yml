@@ -31,4 +31,4 @@ jobs:
             git pull
             npm install
             npx tsc
-            pm2 start npm --name "main-discord-bot" -- run start
+            npx pm2 start npm --name "main-discord-bot" -- run start
