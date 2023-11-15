@@ -16,12 +16,13 @@ jobs:
       - name: Copy repository files
         env:
           SERVER_KEY: ${{ secrets.SERVER_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
         run: |
           mkdir -p ~/.ssh/
           echo "$SERVER_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan *** >> ~/.ssh/known_hosts
-          rsync -r $GITHUB_WORKSPACE/ root@***:main-discord-bot
+          ssh-keyscan "$SERVER_HOST" >> ~/.ssh/known_hosts
+          rsync -r $GITHUB_WORKSPACE/ root@SERVER_HOST:main-discord-bot
 
       - name: Deploy
         uses: appleboy/ssh-action@master
