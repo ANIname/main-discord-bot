@@ -14,18 +14,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Log secrets
-        run: |
-          echo ${{ secrets.SERVER_HOST }}
-          echo ${{ secrets.SERVER_KEY }}
-          echo ${{ secrets.SERVER_PASSWORD }}
-          echo ${{ secrets.SERVER_SSH_FINGERPRINT }}
-          echo ${{ secrets.DISCORD_BOT_TOKEN }}
-
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20.x'
+
+      - name: Test SSH connection
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SERVER_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          ssh -tt ${{ secrets.SERVER_HOST }} echo "SSH connection works"
 
       - name: Deploy using ssh
         uses: appleboy/ssh-action@master
