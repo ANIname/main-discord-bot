@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to prod environment
 
 on:
   push:
@@ -9,30 +9,26 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: prod
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Copy repository files
-        env:
-          SERVER_KEY: ${{ secrets.SERVER_KEY }}
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SERVER_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan "$SERVER_HOST" >> ~/.ssh/known_hosts
-          rsync -r $GITHUB_WORKSPACE/ root@SERVER_HOST:main-discord-bot
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.x'
 
-      - name: Deploy
+      - name: Deploy using ssh
         uses: appleboy/ssh-action@master
         with:
+          username: 'root'
           host: ${{ secrets.SERVER_HOST }}
           key: ${{ secrets.SERVER_KEY }}
-          username: root
+          port: 22
           script: |
-            ssh-keyscan ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-            rsync -r $GITHUB_WORKSPACE/ root@${{ secrets.SERVER_HOST }}:main-discord-bot
+            cd /var
+            git clone
             cd main-discord-bot
             npm install
             npx tsc
