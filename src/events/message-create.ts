@@ -8,4 +8,7 @@ import { Client, Message } from 'discord.js'
 export default function messageCreate(_: Client, message: Message) {
   // Log text message
   console.log('message', message.content)
+
+  // Reply to message
+  message.reply('Hello World!')
 }

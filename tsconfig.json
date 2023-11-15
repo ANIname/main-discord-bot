@@ -26,7 +26,7 @@
     "outDir": "./dist",
 
     /* Emit */
-    "declaration": true,
+    "declaration": false,
 
     /* Language and Environment */
     "target": "ES2022",

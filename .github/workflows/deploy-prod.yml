@@ -30,5 +30,6 @@ jobs:
             cd main-discord-bot
             git pull
             npm install
+            rm -rf dist
             npx tsc
-            npx pm2 start npm --name "main-discord-bot" -- run start
+            DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }} pm2 start dist/src/index.js --name "main-discord-bot"
