@@ -28,7 +28,7 @@ jobs:
           port: 22
           script: |
             cd /var
-            git clone
+            git clone git@github.com:ANIname/main-discord-bot.git
             cd main-discord-bot
             npm install
             npx tsc
