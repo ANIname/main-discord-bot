@@ -19,6 +19,12 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Setup Environment Variables
+        run: |
+          echo "${{ secrets.SERVER_KEY }}" > ~/.ssh/id_rsa_base64
+          base64 -d ~/.ssh/id_rsa_base64 > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
       - name: Test SSH connection
         run: |
           mkdir -p ~/.ssh/
