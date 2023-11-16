@@ -32,4 +32,4 @@ jobs:
             npm install
             rm -rf dist
             npx tsc
-            DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }} npx pm2 start dist/src/index.js --name "main-discord-bot"
+            DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }} npx pm2 start dist/src/index.js --name "main-discord-bot" -f
