@@ -1,1 +1,0 @@
-export const BOT_ID = '428598137490505728'

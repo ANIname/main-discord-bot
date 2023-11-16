@@ -1,13 +1,18 @@
 import { directoryImport } from 'directory-import'
-import { Client, ClientEvents } from 'discord.js'
+import { Client, ClientEvents, GatewayIntentBits } from 'discord.js'
 import camelCase from 'lodash/camelCase'
 
-import { DISCORD_INTENTS } from '../constants/discord'
 import { EventData } from './types.d'
 
 const { DISCORD_BOT_TOKEN } = process.env
 
-export const client = new Client({ intents: DISCORD_INTENTS })
+export const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent
+  ]
+})
 
 client.login(DISCORD_BOT_TOKEN)
 
