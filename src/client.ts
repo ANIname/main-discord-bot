@@ -7,7 +7,7 @@ import { EventData } from './types.d'
 
 const { DISCORD_BOT_TOKEN } = process.env
 
-const client = new Client({ intents: DISCORD_INTENTS })
+export const client = new Client({ intents: DISCORD_INTENTS })
 
 client.login(DISCORD_BOT_TOKEN)
 
