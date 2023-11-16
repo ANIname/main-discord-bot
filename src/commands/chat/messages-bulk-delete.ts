@@ -1,8 +1,8 @@
-import { ChatInputCommandInteraction, NewsChannel, SlashCommandBuilder, TextChannel } from 'discord.js'
+import { ChatInputCommandInteraction, NewsChannel, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from 'discord.js'
 
 export const data = new SlashCommandBuilder()
   .setName('messages-bulk-delete')
-  .setDefaultMemberPermissions('ADMINISTRATOR')
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
   .setDescription('Bulk delete messages')
   .addIntegerOption((option) => 
     option
