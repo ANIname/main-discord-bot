@@ -1,12 +1,14 @@
 # App Commands
 app:
 	@make npm-install-if-not-exists
-	@node utils/make/app.mjs
+	@make cleanUp
+	@node dist/utils/make/app.js
 
 # NPM Commands
 npm:
 	@make npm-install-if-not-exists
-	@node utils/make/npm.mjs
+	@make cleanUp
+	@node dist/utils/make/npm.js
 
 npm-install-if-not-exists:
 	@[ -d "node_modules" ] || npm i
@@ -17,3 +19,7 @@ npm-update:
 	@ncu -u
 	@echo "🔄 Installing latest versions..."
 	@npm i
+
+cleanUp:
+	@rm -rf dist
+	@npx tsc
