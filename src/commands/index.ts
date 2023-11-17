@@ -4,6 +4,8 @@ import { Command, Commands } from './types.d'
 
 const commands: Commands = {}
 
+// Import all commands from the commands directory and add them to the commands object
+// Example: ./commands/test/ping.ts => commands['ping'] = { data: { ... }, execute: () => { ... } }
 directoryImport((moduleName, _, moduleData) => {
   if (moduleName === 'index') return
 
