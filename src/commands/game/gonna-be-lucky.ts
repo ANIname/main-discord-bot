@@ -36,7 +36,7 @@ const gameTimeOut: GameTimeOut = {}
 
 export const data = new SlashCommandBuilder()
   .setName('gonna-be-lucky')
-  .setDescription('Generates a random event and gives or takes away points')
+  .setDescription('Генерирует случайное событие и даёт или отнимает очки')
 
 const promt = (mention: string) =>
   'Мы играем в игру:"gonna be lucky".' +

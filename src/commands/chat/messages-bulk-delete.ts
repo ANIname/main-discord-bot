@@ -3,11 +3,11 @@ import { ChatInputCommandInteraction, NewsChannel, PermissionFlagsBits, SlashCom
 export const data = new SlashCommandBuilder()
   .setName('messages-bulk-delete')
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-  .setDescription('Bulk delete messages')
+  .setDescription('Удаляет несколько сообщений в чате одной командой')
   .addIntegerOption((option) => 
     option
       .setName('amount')
-      .setDescription('Amount of messages to delete')
+      .setDescription('Количество сообщений для удаления')
       .setMaxValue(100)
       .setMinValue(2)
   )
