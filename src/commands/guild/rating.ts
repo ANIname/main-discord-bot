@@ -42,7 +42,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     embeds: [{
       color: 1,
       fields: users.map((user: User, index: number) => ({
-        name: `${index + 1}. <@${user['discord']?.id}>`,
+        name: `${index + 1}. ${interaction.guild?.members.cache.get(user.discord.id)?.displayName || 'Неизвестный пользователь'}`,
         value: `Очки: ${user.games?.gonnaBeLucky?.points || 0}`
       }))
     }]
