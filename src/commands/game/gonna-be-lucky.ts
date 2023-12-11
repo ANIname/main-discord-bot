@@ -1,4 +1,5 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
+import includes from 'lodash/includes'
 import fetch from 'node-fetch'
 
 import openAi from '../../../services/open-ai'
@@ -48,7 +49,6 @@ const promt = (mention: string) =>
   '\n От тебя я хочу только сгенерированное событие и количество очков. Не больше, не меньше.' +
   '\n Формат json объект. Где event - это событие, points - это очки, increase - тут ты указываешь булеаном добавляешь очки, или отнимаешь, declination - указываешь склонение (очко, очка, очков)' +
   '\n Важно чтобы формат был именно такой, иначе я не смогу правильно посчитать очки.' +
-  '\n Важно чтобы ты не указывал количество очков в поле event или declination. Указывай очки только в поле points.' +
   `\n Пример: {"event": "${mention} пошел в казино и выбил джекпот.", "points": 100, "increase": true, "declination": "очков"}` +
   '\n Буду рад если ты будешь генерировать забавные события, суть в том чтобы было весело, а так-же не будешь повторяться.' +
   '\n Не нужно оборачивать сообщение дополнительно в кавычки. Тоесть вместо \'"текст"\' пиши просто \'текст\'.' +
@@ -81,18 +81,16 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 
   const { event, points, increase, declination } = JSON.parse(result.choices[0]?.message.content || '{}') as GameEvent
 
-  const message = `${event} ${increase ? '+' : '-'}${points} ${declination}`
+  const stringPoints = `${increase ? '+' : '-'}${points} ${declination}`
+
+  const message = includes(event, stringPoints) ? event : `${event} ${stringPoints}`
 
   await interaction.editReply({ content: message })
-
-  console.log({
-    event, points, increase, declination 
-  })
 
   const getUserResponse = await fetch(`${BACKEND_URL}/user?discord={ "id": ${interaction.user.id} }`)
   const user = await getUserResponse.json() as User
   
-  const updateUserResponse = await fetch(`${BACKEND_URL}/user?discord={ "id": ${interaction.user.id} }&options={ "upsert": true }`, {
+  await fetch(`${BACKEND_URL}/user?discord={ "id": ${interaction.user.id} }&options={ "upsert": true }`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -110,8 +108,6 @@ export async function execute(interaction: ChatInputCommandInteraction) {
       }
     })
   })
-
-  console.log(await updateUserResponse.json())
 
   gameTimeOut[interaction.user.id] = new Date()
 }
