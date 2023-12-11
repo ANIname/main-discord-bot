@@ -37,6 +37,11 @@ export async function execute(interaction: ChatInputCommandInteraction) {
   
   const users = await findUsers<User>()
 
+  if (users.length === 0) {
+    await interaction.editReply('Таблица лидеров пуста')
+    return
+  }
+
   await interaction.editReply({
     content: 'Таблица лидеров',
     embeds: [{
