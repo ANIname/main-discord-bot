@@ -92,17 +92,15 @@ export async function execute(interaction: ChatInputCommandInteraction) {
       id: interaction.user.id
     },
 
-    games: {
-      gonnaBeLucky: {
-        points: getPoints(user, points, increase),
-        events: getEvents(user, event, points, increase, declination)
-      }
+    'games.gonnaBeLucky': {
+      points: getPoints(user, points, increase),
+      events: getEvents(user, event, points, increase, declination)
     }
   }
 
   await mongodb.user.findOneAndUpdate(
     { discord: { id: interaction.user.id } },
-    dataToUpsert,
+    { $set: dataToUpsert },
     { upsert: true }
   )
 
