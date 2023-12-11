@@ -1,15 +1,15 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
-import fetch from 'node-fetch'
 
-const { BACKEND_URL } = process.env
+import * as mongodb from '../../../services/mongidb'
 
 interface User {
-  _id: string
+  [key: string]: unknown
   discord: {
     id: string
-  }
-  games?: {
-    gonnaBeLucky?: {
+  },
+
+  games: {
+    gonnaBeLucky: {
       points: number
       events: GameEvent[]
     }
@@ -35,18 +35,27 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction: ChatInputCommandInteraction) {
   await interaction.deferReply()
   
-  const response = await fetch(`${BACKEND_URL}/users?sort={ "games.gonnaBeLucky.points": -1 }`)
-  const users = await response.json() as User[]
+  const users = await findUsers<User>()
 
   await interaction.editReply({
+    content: 'Таблица лидеров',
     embeds: [{
-      title: 'Таблица лидеров',
-      color: 0,
+      color: 1,
       fields: users.map((user: User, index: number) => ({
-        name: `${index + 1}. ${interaction.guild?.members.cache.get(user.discord.id)?.displayName}`,
-        value: `Очки: ${user.games?.gonnaBeLucky?.points}`,
-        inline: true
+        name: `${index + 1}. <@${user['discord']?.id}>`,
+        value: `Очки: ${user.games?.gonnaBeLucky?.points || 0}`
       }))
     }]
   })
+}
+
+/**
+ * Finds all users who have points
+ * @returns {Promise<[]>} - Array of users
+ */
+async function findUsers<T>(): Promise<T[]> {
+  return mongodb.user.find({ 'games.gonnaBeLucky.points': { $gt: 0 } })
+    .sort({ 'games.gonnaBeLucky.points': -1 })
+    .limit(10)
+    .toArray() as Promise<T[]>;
 }

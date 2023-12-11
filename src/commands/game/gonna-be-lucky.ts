@@ -1,14 +1,12 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
 import includes from 'lodash/includes'
-import fetch from 'node-fetch'
 
+import * as mongodb from '../../../services/mongidb'
 import openAi from '../../../services/open-ai'
 
-const { BACKEND_URL } = process.env
-
 interface User {
-  _id: string
-  discord: {
+  _id?: string
+  discord?: {
     id: string
   }
   games?: {
@@ -87,27 +85,26 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 
   await interaction.editReply({ content: message })
 
-  const getUserResponse = await fetch(`${BACKEND_URL}/user?discord={ "id": ${interaction.user.id} }`)
-  const user = await getUserResponse.json() as User
-  
-  await fetch(`${BACKEND_URL}/user?discord={ "id": ${interaction.user.id} }&options={ "upsert": true }`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      discord: {
-        id: interaction.user.id
-      },
+  const user = (await mongodb.user.findOne({ discord: { id: interaction.user.id } })) || {}
 
-      games: {
-        gonnaBeLucky: {
-          points: getPoints(user, points, increase),
-          events: getEvents(user, event, points, increase, declination)
-        }
+  const dataToUpsert = {
+    discord: {
+      id: interaction.user.id
+    },
+
+    games: {
+      gonnaBeLucky: {
+        points: getPoints(user, points, increase),
+        events: getEvents(user, event, points, increase, declination)
       }
-    })
-  })
+    }
+  }
+
+  await mongodb.user.updateOne(
+    { discord: { id: interaction.user.id } },
+    dataToUpsert,
+    { upsert: true }
+  )
 
   gameTimeOut[interaction.user.id] = new Date()
 }

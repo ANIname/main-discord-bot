@@ -1,6 +1,7 @@
 import { Client, REST, Routes } from 'discord.js'
 import map from 'lodash/map'
 
+import mongodb from '../../services/mongidb'
 import commands from '../commands'
 
 const { DISCORD_BOT_TOKEN } = process.env
@@ -10,7 +11,10 @@ const { DISCORD_BOT_TOKEN } = process.env
  * @param {Client} client - Discord Client
  */
 export default async function ready (client: Client) {
-  await refreshInteractionCommands(client)
+  await Promise.all([
+    mongodb.connect(),
+    refreshInteractionCommands(client)
+  ])
   
   console.log(`${client.user?.username} bot is ready!`)
 }
