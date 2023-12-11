@@ -32,4 +32,4 @@ jobs:
             npm install
             rm -rf dist
             npx tsc
-            npx pm2 reload dist/src/index.js --name "main-discord-bot" || DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }} OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} MONGODB_URI=${{ secrets.MONGODB_URI }} npx pm2 start dist/src/index.js --name "main-discord-bot"
+            npx pm2 reload dist/src/index.js --name "main-discord-bot" || DISCORD_BOT_TOKEN="${{ secrets.DISCORD_BOT_TOKEN }}" OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}" MONGODB_URI="${{ secrets.MONGODB_URI }}" npx pm2 start dist/src/index.js --name "main-discord-bot"
