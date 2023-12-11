@@ -100,7 +100,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     }
   }
 
-  await mongodb.user.updateOne(
+  await mongodb.user.findOneAndUpdate(
     { discord: { id: interaction.user.id } },
     dataToUpsert,
     { upsert: true }
