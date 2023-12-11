@@ -58,8 +58,6 @@ const promt = (mention: string) =>
  * @param {ChatInputCommandInteraction} interaction - Discord Interaction
  */
 export async function execute(interaction: ChatInputCommandInteraction) {
-  await interaction.deferReply()
-  
   const time = gameTimeOut[interaction.user.id]
 
   if (time && Date.now() - time.getTime() < timeOut) {
@@ -69,6 +67,8 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     })
     return
   }
+
+  await interaction.deferReply()
 
   const result = await openAi.chat.completions.create({
     model: 'gpt-4',
