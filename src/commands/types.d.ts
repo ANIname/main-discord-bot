@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
+import { ChatInputCommandInteraction, SlashCommandBuilder, Snowflake } from 'discord.js'
 
 export type CommandName    = string
 export type CommandHandler = (interaction: ChatInputCommandInteraction) => Promise<void>
@@ -10,4 +10,8 @@ export interface Command {
 
 export interface Commands {
   [key: CommandName]: Command
+}
+
+export interface GameTimeOut {
+  [key: Snowflake]: Date
 }

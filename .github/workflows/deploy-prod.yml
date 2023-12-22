@@ -27,9 +27,16 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            export DISCORD_BOT_TOKEN="${{ secrets.DISCORD_BOT_TOKEN }}"
+            export OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
+            export POSTGRES_HOST="${{ secrets.POSTGRES_HOST }}"
+            export POSTGRES_USER="${{ secrets.POSTGRES_USER }}"
+            export POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}"
+            export POSTGRES_DATABASE="${{ secrets.POSTGRES_DATABASE }}"
+
             cd main-discord-bot
             git pull
             npm install
             rm -rf dist
             npx tsc
-            npx pm2 reload dist/src/index.js --name "main-discord-bot" || DISCORD_BOT_TOKEN="${{ secrets.DISCORD_BOT_TOKEN }}" OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}" MONGODB_URI="${{ secrets.MONGODB_URI }}" npx pm2 start dist/src/index.js --name "main-discord-bot"
+            npx pm2 reload dist/src/index.js --name "main-discord-bot" || npx pm2 start dist/src/index.js --name "main-discord-bot"

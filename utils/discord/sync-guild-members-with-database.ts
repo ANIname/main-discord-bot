@@ -25,5 +25,7 @@ export default async function syncGuildMembersWithDatabase (guild: Guild) {
     return { id, discordId, createdAt: user?.joinedAt }
   })
 
-  return knex('User').insert(usersToCreate)
+  return usersToCreate.length > 0
+    ? knex('User').insert(usersToCreate)
+    : Promise.resolve()
 }
