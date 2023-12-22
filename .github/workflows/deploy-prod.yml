@@ -39,4 +39,4 @@ jobs:
             npm install
             rm -rf dist
             npx tsc
-            npx pm2 reload dist/src/index.js --name "main-discord-bot" || npx pm2 start dist/src/index.js --name "main-discord-bot"
+            npx pm2 reload ecosystem.config.js --update-env || npx pm2 start ecosystem.config.js
