@@ -15,7 +15,7 @@ export default async function ready (client: Client) {
 
   await Promise.all([
     syncGuildMembersWithDatabase(guild),
-    refreshInteractionCommands(client.user, guild)
+    refreshInteractionCommands(client.user)
   ])
   
   console.log(`${client.user?.username} bot is ready!`)

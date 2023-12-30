@@ -1,7 +1,7 @@
 import { Snowflake } from 'discord.js'
 import * as uuid from 'uuid'
 
-import knex from '../../../services/knex'
+import knex from '../../../../services/knex'
 import { GameEvent } from './types.d'
 
 /**

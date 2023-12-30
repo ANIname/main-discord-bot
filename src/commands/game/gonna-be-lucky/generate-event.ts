@@ -1,6 +1,6 @@
 import { UserMention } from 'discord.js'
 
-import openAi        from '../../../services/open-ai'
+import openAi        from '../../../../services/open-ai'
 import getPrompt     from './get-prompt'
 import { GameEvent } from './types.d'
 

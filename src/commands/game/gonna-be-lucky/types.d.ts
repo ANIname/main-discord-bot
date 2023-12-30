@@ -4,3 +4,7 @@ export interface GameEvent {
   declination: string
   date?: Date
 }
+
+export interface GameTimeOut {
+  [key: string]: Date
+}

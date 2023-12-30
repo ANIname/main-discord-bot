@@ -41,7 +41,8 @@
     "@typescript-eslint/no-unsafe-assignment": "error",
     "@typescript-eslint/no-empty-interface": ["error", { "allowSingleExtends": true }],
 
-    "unicorn/prefer-top-level-await": "off"
+    "unicorn/prefer-top-level-await": "off",
+    "unicorn/no-array-for-each": "off"
   },
 
   "ignorePatterns": ["node_modules", "dist", "**/*.js", "**/*.mjs"]
