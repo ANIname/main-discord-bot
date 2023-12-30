@@ -13,6 +13,7 @@ export const data = new SlashCommandBuilder()
   .addIntegerOption((option) => 
     option
       .setName('amount')
+      .setRequired(true)
       .setDescription('Количество сообщений для удаления')
       .setMaxValue(100)
       .setMinValue(2)
