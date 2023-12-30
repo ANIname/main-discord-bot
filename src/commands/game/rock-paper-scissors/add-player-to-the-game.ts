@@ -22,14 +22,6 @@ export default async function addPlayerToTheGame(interaction: ChatInputCommandIn
   const playersLength      = gameChannelOptions.players.push(player) || 1
   const playersArray       = gameChannelOptions.players || []
 
-  delete gamePlayHandlers[playersLength - 1]
-
-  // eslint-disable-next-line security/detect-object-injection
-  gamePlayHandlers[playersLength] = playGameWithOtherPlayers
-
-  // eslint-disable-next-line security/detect-object-injection
-  setTimeout(() => gamePlayHandlers[playersLength]?.(interaction, playersArray), gameChannelOptions.timer)
-
   const message = `Игрок <@${player.id}> присоединился к игре камень-ножницы-бумага! ` +
     'Использовав команду: `/rock-paper-scissors`' +
     '\n' +
@@ -38,6 +30,14 @@ export default async function addPlayerToTheGame(interaction: ChatInputCommandIn
   const sentMessage = await interaction.channel.send(message)
 
   gameChannelOptions.joinedMessagesIds.push(sentMessage.id)
+
+  delete gamePlayHandlers[playersLength - 1]
+
+  // eslint-disable-next-line security/detect-object-injection
+  gamePlayHandlers[playersLength] = playGameWithOtherPlayers
+
+  // eslint-disable-next-line security/detect-object-injection
+  setTimeout(() => gamePlayHandlers[playersLength]?.(interaction, playersArray), gameChannelOptions.timer)
 
   interaction.deleteReply()
 }
