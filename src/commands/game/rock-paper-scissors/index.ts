@@ -41,7 +41,7 @@ export const data = new SlashCommandBuilder()
     option
       .setName('timer')
       .setDescription('Время в минутах, которое будет отведено на присоединение соперника')
-      .setMinValue(10)
+      .setMinValue(1)
       .setMaxValue(60)
   )
 
