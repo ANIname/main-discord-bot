@@ -10,7 +10,7 @@ import replyToExistingPlayer from './reply-to-existing-player'
 import { GameChannelOptions } from './types.d'
 
 export const data = new SlashCommandBuilder()
-  .setName('test-rock-paper-scissors')
+  .setName('rock-paper-scissors')
   .setDescription('Игра в камень-ножницы-бумага')
   .addStringOption((option) =>
     option
