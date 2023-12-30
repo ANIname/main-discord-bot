@@ -1,8 +1,8 @@
 import { ChatInputCommandInteraction, TextChannel } from 'discord.js'
 
-import channels from './channels'
+import gameChannels from './channels'
 import playGame from './play-game'
-import { Player } from './types.d'
+import { GameChannelOptions, Player } from './types.d'
 import weapons from './weapons.json'
 
 /**
@@ -30,11 +30,10 @@ function getGameResult (interaction: ChatInputCommandInteraction, playersArray: 
     return
   }
 
-  const messageToDeleteId = channels[interaction.channel.id]?.initiateMessageId
+  const gameChannelOptions  = gameChannels[interaction.channel.id] as GameChannelOptions
+  const messagesToDeleteIds = [...gameChannelOptions.joinedMessagesIds, gameChannelOptions.initiateMessageId]
 
-  if (messageToDeleteId) {
-    interaction.channel.messages.delete(messageToDeleteId)
-  }
+  interaction.channel.bulkDelete(messagesToDeleteIds)
   
   const isDraw = playersArray[0]?.status === 'draw'
 
@@ -51,7 +50,7 @@ function getGameResult (interaction: ChatInputCommandInteraction, playersArray: 
     
     interaction.channel.send(message)
 
-    delete channels[interaction.channel.id]
+    delete gameChannels[interaction.channel.id]
   }
 
   else {
@@ -74,6 +73,6 @@ function getGameResult (interaction: ChatInputCommandInteraction, playersArray: 
     
     interaction.channel.send(message)
 
-    delete channels[interaction.channel.id]
+    delete gameChannels[interaction.channel.id]
   }
 }

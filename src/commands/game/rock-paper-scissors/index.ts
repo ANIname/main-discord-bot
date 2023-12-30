@@ -1,15 +1,16 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
 
 import addPlayerToTheGame from './add-player-to-the-game'
-import channels from './channels'
+import gameChannels from './channels'
 import getInteractionOptions from './get-interaction-options'
 import { getUserPlayer } from './get-player'
 import initiateGame from './initiate-game'
 import playGameWithBot from './play-game-with-bot'
 import replyToExistingPlayer from './reply-to-existing-player'
+import { GameChannelOptions } from './types.d'
 
 export const data = new SlashCommandBuilder()
-  .setName('rock-paper-scissors')
+  .setName('test-rock-paper-scissors')
   .setDescription('Игра в камень-ножницы-бумага')
   .addStringOption((option) =>
     option
@@ -53,15 +54,15 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction: ChatInputCommandInteraction) {
   await interaction.deferReply({ ephemeral: true })
 
-  const { timer, weapon } = getInteractionOptions(interaction)
-
+  const { timer, weapon }  = getInteractionOptions(interaction)
+  
   const player = getUserPlayer(interaction.user, weapon)
   if (!interaction.channel) return playGameWithBot(interaction, player)
   
-  const playersArray = channels[interaction.channel.id]?.players || []
-  if (playersArray.length === 0) return initiateGame(interaction, player, timer)
+  const gameChannelOptions = gameChannels[interaction.channel.id] as GameChannelOptions
+  if (!gameChannelOptions?.players) return initiateGame(interaction, player, timer)
 
-  const existingPlayer = playersArray.find((foundPlayer) => foundPlayer.id === player.id)
+  const existingPlayer = gameChannelOptions.players.find((foundPlayer) => foundPlayer.id === player.id)
   if (existingPlayer) return replyToExistingPlayer(interaction, existingPlayer)
 
   return addPlayerToTheGame(interaction, player)

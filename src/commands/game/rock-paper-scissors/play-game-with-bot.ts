@@ -1,8 +1,8 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from 'discord.js'
 
 import { getBotPlayer } from './get-player'
 import playGame from './play-game'
-import { Player } from "./types.d";
+import { Player } from './types.d'
 import weapons from './weapons.json'
 
 /**

@@ -22,6 +22,7 @@ export interface GameChannels {
 export interface GameChannelOptions {
   timer: number,
   initiateMessageId: Snowflake,
+  joinedMessagesIds: Snowflake[],
   players: Player[]
 }
 

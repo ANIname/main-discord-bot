@@ -30,8 +30,8 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 
   if (interaction.channel instanceof TextChannel || interaction.channel instanceof NewsChannel) {
     await interaction.channel.bulkDelete(amount)
-    await interaction.editReply(`Deleted ${amount} messages`)
+    await interaction.editReply(`Удалено: ${amount}`)
   } else {
-    await interaction.editReply('This command can only be used in text channels')
+    await interaction.editReply('Эта команда может быть использована только в текстовых каналах!')
   }
 }

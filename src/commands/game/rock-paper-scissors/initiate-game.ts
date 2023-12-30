@@ -24,8 +24,9 @@ export default async function initiateGame(interaction: ChatInputCommandInteract
   const sentMessage = await interaction.channel.send(message)
 
   gameChannels[interaction.channel.id] = {
-    timer:   timer * 1000 * 60,
+    timer,
     initiateMessageId: sentMessage.id,
+    joinedMessagesIds: [],
     players: [player],
   }
 

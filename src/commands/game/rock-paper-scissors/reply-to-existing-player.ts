@@ -1,6 +1,6 @@
 import {ChatInputCommandInteraction} from 'discord.js'
 
-import channels from './channels'
+import gameChannels from './channels'
 import {Player} from './types.d'
 import weapons from './weapons.json'
 
@@ -13,7 +13,7 @@ import weapons from './weapons.json'
 export default function replyToExistingPlayer(interaction: ChatInputCommandInteraction, player: Player): void {
   const playerChoice = weapons[player.choice]
 
-  console.log(channels)
+  console.log(gameChannels)
 
   interaction.editReply({ content: `Вы уже в игре! Ваш выбор: ${playerChoice}` })
 }
