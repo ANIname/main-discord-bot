@@ -3,12 +3,12 @@ import { UserMention } from 'discord.js'
 export default (mention: UserMention) => [
   {
     data: `${mention} решил прогуляться и потерял кошелёк.`,
-    points: -10,
+    points: -150,
     declination: 'очков',
   },
   {
     data: `${mention} пошел в казино и выбил джекпот.`,
-    points: 100,
+    points: 500,
     declination: 'очков',
   },
   {
@@ -18,12 +18,12 @@ export default (mention: UserMention) => [
   },
   {
     data: `${mention} решил расколоть грецкий орех кирпичем, но орех был крепче.`,
-    points: -21,
+    points: -101,
     declination: 'очко'
   },
   {
-    data: `${mention} закатил скандал капитану корабля из-за невкусного кофе, который оказался чаем.`,
-    points: -32,
+    data: `${mention} вызвал духа лампы, который оказался ценителем оперы. После двух часов прослушивания арий, дух подарил ему билет на оперу в Вене и мешок золота.`,
+    points: 243,
     declination: 'очка'
   }
 ]

@@ -1,9 +1,10 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
+import { ChatInputCommandInteraction, InteractionResponse, Message, SlashCommandBuilder } from 'discord.js'
 
-import knex from '../../../../services/knex'
+import { updateGameData } from '../../../../services/knex/base-queries/game-data'
+import { getUserMainGameDataOrInsertNew } from '../../../../services/knex/base-queries/user'
 import generateEvent from './generate-event'
+import replyThatNeedToWait from './reply-that-need-to-wait'
 import replyWithEvent from './reply-with-event'
-import saveEventToDatabase from './save-event-to-database'
 import { GameTimeOut } from './types.d'
 
 const timeOut = 1000 * 60 * 60 // 1 hour
@@ -17,33 +18,30 @@ export const data = new SlashCommandBuilder()
 /**
  * Generates a random event and gives or takes away points
  * @param {ChatInputCommandInteraction} interaction - Discord Interaction
- * @returns {Promise<void>} - Promise
+ * @returns {Promise<InteractionResponse<boolean> | Message<boolean>>} - Promise
  */
-export async function execute(interaction: ChatInputCommandInteraction) {
-  const timeOutEnd = gameTimeOut[interaction.user.id] as Date | undefined
+export async function execute(interaction: ChatInputCommandInteraction): Promise<InteractionResponse<boolean> | Message<boolean>> {
+  const userDiscordId = interaction.user.id
 
-  if (timeOutEnd && Date.now() - timeOutEnd.getTime() < timeOut) {
-    const waitTime = Math.floor((timeOut - (Date.now() - timeOutEnd.getTime())) / 1000 / 60)
+  // eslint-disable-next-line security/detect-object-injection
+  const timeOutEnd = gameTimeOut[userDiscordId] as Date | undefined
+  const needToWait = timeOutEnd && Date.now() - timeOutEnd.getTime() < timeOut
 
-    await interaction.reply({
-      content: `Пожалуйста, наберитесь терпения! Подождите еще ${waitTime} мин. И я снова буду готова!`,
-      ephemeral: true
-    })
+  if (needToWait) return replyThatNeedToWait(interaction, timeOut, timeOutEnd)
 
-    return
-  }
-
-  const [event] = await Promise.all([
-    generateEvent(`<@${interaction.user.id}>`),
+  const [game, event] = await Promise.all([
+    getUserMainGameDataOrInsertNew(userDiscordId, 'gonnaBeLucky'),
+    generateEvent(`<@${userDiscordId}>`),
     interaction.deferReply()
   ])
 
-  const user = await knex('User').where({ discordId: interaction.user.id }).first() as { id: string }
-
-  await Promise.all([
-    saveEventToDatabase(user.id, event),
+  const [, interactionResponse] = await Promise.all([
+    updateGameData(game, event),
     replyWithEvent(interaction, event)
   ])
 
-  gameTimeOut[interaction.user.id] = new Date()
+  // eslint-disable-next-line security/detect-object-injection
+  gameTimeOut[userDiscordId] = new Date()
+
+  return interactionResponse
 }
