@@ -1,4 +1,6 @@
-export type GameTitle = 'gonnaBeLucky' | 'rockPaperScissors'
+import { availableGames } from './enum'
+
+export type GameTitle = typeof availableGames[number]
 export interface MainGameData {
   id: string
   points: number
