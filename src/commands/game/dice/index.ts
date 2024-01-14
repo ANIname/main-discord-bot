@@ -2,23 +2,55 @@ import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
 
 export const data = new SlashCommandBuilder()
   .setName('dice')
-  .setDescription('Подбрасывает кубик (от 1 до 6 по дефолту)')
+  .setNameLocalizations({
+    'uk': 'рандомне-число',
+    'ru': 'рандомное-число'
+  })
+  .setDescription('Rolls a dice (from 1 to 6 by default)')
+  .setDescriptionLocalizations({
+    'uk': 'Підкидає кубик (від 1 до 6 за замовчуванням)',
+    'ru': 'Подкидывает кубик (от 1 до 6 по умолчанию)'
+  })
   .addIntegerOption((option) =>
     option
       .setName('min')
-      .setDescription('Минимальное значение')
+      .setNameLocalizations({
+        'uk': 'мінімум',
+        'ru': 'минимум'
+      })
+      .setDescription('Minimum value')
+      .setDescriptionLocalizations({
+        'uk': 'Мінімальне значення',
+        'ru': 'Минимальное значение'
+      })
       .setMinValue(0)
   )
   .addIntegerOption((option) =>
     option
       .setName('max')
-      .setDescription('Максимальное значение')
+      .setNameLocalizations({
+        'uk': 'максимум',
+        'ru': 'максимум'
+      })
+      .setDescription('Maximum value')
+      .setDescriptionLocalizations({
+        'uk': 'Максимальне значення',
+        'ru': 'Максимальное значение'
+      })
       .setMaxValue(999_999_999_999_999)
   )
   .addStringOption((option) =>
     option
       .setName('title')
-      .setDescription('Заголовок')
+      .setNameLocalizations({
+        'uk': 'заголовок',
+        'ru': 'заголовок'
+      })
+      .setDescription('Title for the message')
+      .setDescriptionLocalizations({
+        'uk': 'Заголовок для повідомлення',
+        'ru': 'Заголовок для сообщения'
+      })
   )
 
 /**

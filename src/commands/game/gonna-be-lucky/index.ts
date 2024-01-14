@@ -13,7 +13,15 @@ const gameTimeOut: GameTimeOut = {}
 
 export const data = new SlashCommandBuilder()
   .setName('gonna-be-lucky')
-  .setDescription('Генерирует случайное событие и даёт или отнимает очки')
+  .setNameLocalizations({
+    'uk': 'мені-пощастить',
+    'ru': 'мне-повезёт'
+  })
+  .setDescription('Generates a random event and gives or takes away points')
+  .setDescriptionLocalizations({
+    'uk': 'Генерує випадкову подію та дає або забирає очки',
+    'ru': 'Генерирует случайное событие и даёт или отнимает очки'
+  })
 
 /**
  * Generates a random event and gives or takes away points
@@ -31,7 +39,7 @@ export async function execute(interaction: ChatInputCommandInteraction): Promise
 
   const [game, event] = await Promise.all([
     getUserMainGameDataOrInsertNew(userDiscordId, 'gonnaBeLucky'),
-    generateEvent(`<@${userDiscordId}>`),
+    generateEvent(interaction.locale, `<@${userDiscordId}>`),
     interaction.deferReply()
   ])
 

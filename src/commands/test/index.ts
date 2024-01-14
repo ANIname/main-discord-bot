@@ -6,7 +6,15 @@ import {
 
 export const data = new SlashCommandBuilder()
   .setName('test')
-  .setDescription('Команда для тестирования нового функционала')
+  .setNameLocalizations({
+    'uk': 'тест',
+    'ru': 'тест'
+  })
+  .setDescription('Command for testing new functionality')
+  .setNameLocalizations({
+    'uk': 'Команда для тестування нового функціоналу',
+    'ru': 'Команда для тестирования нового функционала'
+  })
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
 /**
