@@ -3,8 +3,8 @@ import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
 export const data = new SlashCommandBuilder()
   .setName('dice')
   .setNameLocalizations({
-    'uk': 'рандомне-число',
-    'ru': 'рандомное-число'
+    'uk': 'випадковість',
+    'ru': 'случайность'
   })
   .setDescription('Rolls a dice (from 1 to 6 by default)')
   .setDescriptionLocalizations({
