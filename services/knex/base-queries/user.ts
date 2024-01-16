@@ -17,16 +17,20 @@ export const getUserId = (discordId: Snowflake): Promise<string> => knex('User')
   .where({ discordId })
   .select('id')
   .first()
-  .then(({ id }) => id)
+  .then((user) => user?.id)
 
 /**
  *
- * @param {Snowflake} discordId - User Discord ID
+ * @param {{ id?: string, discordId?: Snowflake }} options - User ID (UUID or Discord ID)
+ * @param {string} options.id - User UUID
+ * @param {Snowflake} options.discordId - User Discord ID
  * @param {GameTitle} title - Game title
  * @returns {Promise<MainGameData>} - Game data
  */
-export async function getUserMainGameDataOrInsertNew (discordId: Snowflake, title: GameTitle): Promise<MainGameData> {
-  const userId = await getUserId(discordId)
+export async function getUserMainGameDataOrInsertNew (options: { id?: string, discordId?: Snowflake }, title: GameTitle): Promise<MainGameData> {
+  if (!options.id && !options.discordId) throw new Error('User ID or Discord ID must be specified')
+
+  const userId = options.id || await getUserId(options.discordId as Snowflake)
 
   return getMainGameDataOrInsertNew(userId, title)
 }

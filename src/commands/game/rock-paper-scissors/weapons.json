@@ -1,0 +1,19 @@
+{
+  "rock": {
+    "name": "🪨 Rock",
+    "name_localizations": { "uk": "🪨 Камінь", "ru": "🪨 Камень", "en-US": "🪨 Rock" },
+    "value": "rock"
+  },
+
+  "scissors": {
+    "name": "✂️ 📄 Scissors",
+    "name_localizations": { "uk": "✂️ Ножиці", "ru": "✂️ Ножницы", "en-US": "✂️ Scissors" },
+    "value": "scissors"
+  },
+
+  "paper": {
+    "name": "📄 Paper",
+    "name_localizations": { "uk": "📄 Папір", "ru": "📄 Бумага", "en-US": "📄 Paper" },
+    "value": "paper"
+  }
+}

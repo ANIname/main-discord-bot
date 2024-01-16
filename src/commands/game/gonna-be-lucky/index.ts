@@ -38,7 +38,7 @@ export async function execute(interaction: ChatInputCommandInteraction): Promise
   if (needToWait) return replyThatNeedToWait(interaction, timeOut, timeOutEnd)
 
   const [game, event] = await Promise.all([
-    getUserMainGameDataOrInsertNew(userDiscordId, 'gonnaBeLucky'),
+    getUserMainGameDataOrInsertNew({ discordId: userDiscordId }, 'gonnaBeLucky'),
     generateEvent(interaction.locale, `<@${userDiscordId}>`),
     interaction.deferReply()
   ])

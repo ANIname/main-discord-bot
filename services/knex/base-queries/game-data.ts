@@ -50,7 +50,7 @@ export async function insertMainGameData(userId: string, title: GameTitle): Prom
  * @returns {Promise<MainGameData>} - Game data
  */
 export async function getMainGameDataOrInsertNew(userId: string, title: GameTitle): Promise<MainGameData> {
-  return getMainGameData(userId, title) || insertMainGameData(userId, title)
+  return await getMainGameData(userId, title) || await insertMainGameData(userId, title)
 }
 
 /**
@@ -70,5 +70,5 @@ export async function updateGameData(foundGame: MainGameData, event: MainGameEve
   const insertEvent = () => knex(`${gameName}Event`)
     .insert({ id: uuid(), [gameReference]: foundGame.id, ...event })
 
-  return Promise.all([updatePoints, insertEvent])
+  return Promise.all([updatePoints(), insertEvent()])
 }
