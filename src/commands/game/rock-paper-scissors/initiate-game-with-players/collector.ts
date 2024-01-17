@@ -88,7 +88,7 @@ async function updateUsersPoints(gameOptions: GameOptions, playedPlayers: Player
   const winners = playedPlayers.filter(player => player.status === 'win')
   const losers  = playedPlayers.filter(player => player.status === 'lose')
 
-  const pointsToWinners = gameOptions.bet * losers.length / winners.length
+  const pointsToWinners = Math.round(gameOptions.bet * losers.length / winners.length)
   const pointsToLosers  = -gameOptions.bet
   
   const promises = playedPlayers.map(async (player) => {
