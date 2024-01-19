@@ -1,4 +1,5 @@
 export const availableGames = [
+  "discordGuild",
   "gonnaBeLucky",
-  "rockPaperScissors"
+  "rockPaperScissors",
 ] as const
