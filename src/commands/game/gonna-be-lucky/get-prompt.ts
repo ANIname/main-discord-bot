@@ -1,18 +1,17 @@
-import { Locale, UserMention } from 'discord.js'
+import { UserMention } from 'discord.js'
 
 import prepareExamples from './prepare-events-examples'
 
 /**
  * Prepare prompt for chat-gpt
  * Generates a random event and gives or takes away points
- * @param {Locale} locale - Locale
  * @param {UserMention} mention - Discord user mention
  * @returns {string} - Prompt for chat-gpt
  */
-export default function getPrompt (locale: Locale, mention: UserMention) {
+export default function getPrompt (mention: UserMention) {
   const examples = prepareExamples(mention)
 
-  let prompt = 'Мы играем в игру: "gonna be lucky".' +
+  return 'Мы играем в игру: "gonna be lucky".' +
     '\n Суть игры проста. Ты генерируешь случайное событие и даёшь или отнимаешь очки.' +
     '\n Coбытие должно быть забавное, смешное, или нелепое' +
     `\n Например: ${JSON.stringify(examples[0])}.` +
@@ -31,12 +30,4 @@ export default function getPrompt (locale: Locale, mention: UserMention) {
     '\n Шанс на то что ты отнимешь очков должен составлять 40%' +
     '\n Минимум очков, которые можно отнять или добавить - 50.' +
     '\n Максимум очков, которые можно отнять или добавить - 500.'
-
-    if (locale === 'uk') prompt += '\n Сгенерируй событие на украинском языке.'
-    else if (locale === 'ru') prompt += '\n Сгенерируй событие на русском языке.'
-    else prompt += '\n Сгенерируй событие на английском языке.'
-
-    prompt += '\n Не забывай что ключи в объекте в любом случае должны быть на английском, иначе я не смогу их распарсить.'
-
-    return prompt
 }
