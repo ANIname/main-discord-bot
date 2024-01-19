@@ -57,15 +57,18 @@ export async function getMainGameDataOrInsertNew(userId: string, title: GameTitl
  * Update the main game data for a user
  * @param {MainGameData} foundGame - Game data
  * @param {MainGameEvent} event - Game event
+ * @param {boolean} setPoints - Set points
  * @returns {Promise<void>} - Promise
  */
-export async function updateGameData(foundGame: MainGameData, event: MainGameEvent) {
+export async function updateGameData(foundGame: MainGameData, event: MainGameEvent, setPoints = false) {
   const gameName = pascalCase(`Game-${foundGame.title}`)
   const gameReference = camelCase(`game-${foundGame.title}-id`)
 
+  const points = (setPoints) ? event.points : foundGame.points + event.points
+
   const updatePoints = () => knex(gameName)
     .where({ id: foundGame.id })
-    .update({ points: foundGame.points + event.points })
+    .update({ points })
 
   const insertEvent = () => knex(`${gameName}Event`)
     .insert({ id: uuid(), [gameReference]: foundGame.id, ...event })

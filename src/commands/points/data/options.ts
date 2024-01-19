@@ -1,0 +1,31 @@
+import { SlashCommandBooleanOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandUserOption } from '@discordjs/builders'
+
+export const memberOption = () => new SlashCommandUserOption()
+  .setRequired(true)
+  .setName('member')
+  .setNameLocalizations({ 'uk': 'участник', 'ru': 'участник' })
+  .setDescription('Member')
+  .setDescriptionLocalizations({ 'uk': 'Учасник', 'ru': 'Участник' })
+
+export const amountOption = () => new SlashCommandNumberOption()
+  .setRequired(true)
+  .setName('amount')
+  .setNameLocalizations({ 'uk': 'кількість', 'ru': 'количество' })
+  .setDescription('Amount of points')
+  .setDescriptionLocalizations({ 'uk': 'Кількість очок', 'ru': 'Количество очков' })
+  .setMinValue(1)
+
+export const reasonOption = () => new SlashCommandStringOption()
+  .setRequired(true)
+  .setName('reason')
+  .setNameLocalizations({ 'uk': 'причина', 'ru': 'причина' })
+  .setDescription('Reason')
+  .setDescriptionLocalizations({ 'uk': 'Причина', 'ru': 'Причина' })
+  .setMinLength(10)
+
+export const sendMessageOption = () => new SlashCommandBooleanOption()
+  .setRequired(true)
+  .setName('send-message')
+  .setNameLocalizations({ 'uk': 'надіслати-повідомлення', 'ru': 'отправить-сообщение' })
+  .setDescription('Send a message to the user')
+  .setDescriptionLocalizations({ 'uk': 'Надіслати повідомлення учаснику', 'ru': 'Отправить сообщение участнику' })

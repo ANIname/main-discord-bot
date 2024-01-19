@@ -39,14 +39,17 @@ export async function getUserMainGameDataOrInsertNew (options: { id?: string, di
 /**
  * Get the total points of a user
  * @param {Snowflake} discordId - User Discord ID
+ * @param {GameTitle[]} omitGames - Omit games
  * @returns {Promise<number>} - Total points
  */
-export async function getUserTotalPoints (discordId: Snowflake): Promise<number> {
+export async function getUserTotalPoints (discordId: Snowflake, omitGames: GameTitle[] = []): Promise<number> {
   const userId = await getUserId(discordId)
 
   let userGamesQuery = knex('Game').where({ userId })
 
   forEach(availableGames, (gameTitle) => {
+    if (omitGames.includes(gameTitle)) return
+
     const gameName = pascalCase(`Game-${gameTitle}`)
 
     userGamesQuery = userGamesQuery
