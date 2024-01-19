@@ -1,5 +1,6 @@
 import { Client } from 'discord.js'
 
+import cronUpdateTopRatedUsersRoles from '../../utils/discord/cron-update-top-rated-users-roles'
 import refreshInteractionCommands   from '../../utils/discord/refresh-interaction-commands'
 import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members-with-database'
 
@@ -15,7 +16,8 @@ export default async function ready (client: Client) {
 
   await Promise.all([
     syncGuildMembersWithDatabase(guild),
-    refreshInteractionCommands(client.user)
+    refreshInteractionCommands(client.user),
+    cronUpdateTopRatedUsersRoles(guild)
   ])
   
   console.log(`${client.user?.username} bot is ready!`)

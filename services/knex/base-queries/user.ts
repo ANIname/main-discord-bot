@@ -61,9 +61,10 @@ export async function getUserTotalPoints (discordId: Snowflake): Promise<number>
 
 /**
  * Get the users rating
+ * @param {number} limit - Limit of users
  * @returns {Promise<UserRating[]>} - Users rating
  */
-export async function getUsersRating (): Promise<UserRating[]> {
+export async function getUsersRating (limit = 10): Promise<UserRating[]> {
   const usersQuery = knex('User')
     .leftJoin('Game', 'User.id', 'Game.userId')
     .select('User.discordId')
@@ -94,7 +95,7 @@ export async function getUsersRating (): Promise<UserRating[]> {
   const users = await usersQuery
     .having(knex.raw(havingRawQuery))
     .orderByRaw(orderByRawQuery)
-    .limit(100)
+    .limit(limit)
 
   return map(users, ({ discordId, ...pointsPerGames }) => ({
     discordId: discordId as Snowflake,
