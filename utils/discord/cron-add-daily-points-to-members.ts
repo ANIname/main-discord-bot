@@ -12,7 +12,7 @@ export default async (guild: Guild) => new CronJob('0 0 0 * * *', async () => {
     const gameData = await getUserMainGameDataOrInsertNew({ discordId: member.id }, 'discordGuild')
 
     const event = {
-      points: gameData.points + 1,
+      points: 1,
       reason: 'Ежедневные бонусные очки'
     }
 
