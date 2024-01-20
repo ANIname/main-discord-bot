@@ -18,4 +18,4 @@ export default async (guild: Guild) => new CronJob('0 0 0 * * *', async () => {
 
     await updateGameData(gameData, event)
   })
-})
+}).start()
