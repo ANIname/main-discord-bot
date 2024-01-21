@@ -1,4 +1,5 @@
 import { CronJob } from 'cron'
+import declineWord from 'decline-word'
 import { Guild, Snowflake } from 'discord.js'
 import startsWith from 'lodash/startsWith'
 
@@ -17,9 +18,10 @@ export default async (guild: Guild) => new CronJob('0 * * * * *', async () => {
     if (!startsWith(role.name, 'Top Rated User #')) return
 
     const roleNumber = Number((role.name.split(' ')[3] || '').replace('#', ''))
+    const points = usersRating[roleNumber - 1]?.totalPoints || 0
 
     const currentRoleName = role.name
-    const newRoleName = `Top Rated User #${roleNumber} (${usersRating[roleNumber - 1]?.totalPoints || 0} points)`
+    const newRoleName = `Top Rated User #${roleNumber} (${points} ${declineWord(points, 'point', '' , 's', 's')})`
 
     // Set points to role name
     if (currentRoleName !== newRoleName) {

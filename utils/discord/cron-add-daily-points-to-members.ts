@@ -13,7 +13,7 @@ export default async (guild: Guild) => new CronJob('0 0 0 * * *', async () => {
 
     const event = {
       points: 1,
-      reason: 'Ежедневные бонусные очки'
+      reason: 'Ежедневное бонусное очко'
     }
 
     await updateGameData(gameData, event)

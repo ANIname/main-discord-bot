@@ -1,4 +1,4 @@
-import declineWorl from 'decline-word'
+import declineWord from 'decline-word'
 import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from 'discord.js'
 
 export const data = new SlashCommandBuilder()
@@ -40,8 +40,8 @@ export async function execute(interaction: ChatInputCommandInteraction) {
   const channel = interaction.channel as TextChannel
 
   const locales = {
-    'uk': `Видалено ${amount} ${declineWorl(amount, 'повідомлен', 'ня', 'ня', 'ь')}`,
-    'ru': `Удалено ${amount} ${declineWorl(amount, 'сообщени', 'е', 'я', 'й')}`,
+    'uk': `Видалено ${amount} ${declineWord(amount, 'повідомлен', 'ня', 'ня', 'ь')}`,
+    'ru': `Удалено ${amount} ${declineWord(amount, 'сообщени', 'е', 'я', 'й')}`,
     'en': `Deleted ${amount} messages`
   }
 
