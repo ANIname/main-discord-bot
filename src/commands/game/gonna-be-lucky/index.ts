@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, InteractionResponse, Message, SlashCommandBuilder } from 'discord.js'
+import { ChatInputCommandInteraction, InteractionResponse, Message } from 'discord.js'
 
 import { updateGameData } from '../../../../services/knex/base-queries/game-data'
 import { getUserMainGameDataOrInsertNew } from '../../../../services/knex/base-queries/user'
@@ -11,17 +11,7 @@ const timeOut = 1000 * 60 * 60 // 1 hour
 
 const gameTimeOut: GameTimeOut = {}
 
-export const data = new SlashCommandBuilder()
-  .setName('gonna-be-lucky')
-  .setNameLocalizations({
-    'uk': 'мені-пощастить',
-    'ru': 'мне-повезёт'
-  })
-  .setDescription('Generates a random event and gives or takes away points')
-  .setDescriptionLocalizations({
-    'uk': 'Генерує випадкову подію та дає або забирає очки',
-    'ru': 'Генерирует случайное событие и даёт или отнимает очки'
-  })
+export * from './data'
 
 /**
  * Generates a random event and gives or takes away points

@@ -1,16 +1,8 @@
-import { ChatInputCommandInteraction, InteractionResponse, Message, SlashCommandBuilder } from 'discord.js'
+import { ChatInputCommandInteraction, InteractionResponse, Message } from 'discord.js'
 
-import { getUsersRating } from '../../services/knex/base-queries/user'
+import { getUsersRating } from '../../../../services/knex/base-queries/user'
 
-export const data = new SlashCommandBuilder()
-  .setName('rating')
-  .setNameLocalizations({ 'uk': 'рейтинг', 'ru': 'рейтинг' })
-  .setDescription('Shows server members rating')
-  .setDescriptionLocalizations({
-    'uk': 'Показує рейтинг учасників серверу',
-    'ru': 'Показывает рейтинг участников сервера'
-  })
-
+export * from './data'
 
 /**
  * Generates a random event and gives or takes away points
@@ -18,8 +10,10 @@ export const data = new SlashCommandBuilder()
  * @returns {Promise<InteractionResponse<boolean> | Message<boolean>>} - Promise
  */
 export async function execute(interaction: ChatInputCommandInteraction): Promise<InteractionResponse<boolean> | Message<boolean>> {
+  const limit = interaction.options.getNumber('limit') || 10
+  
   const [usersRating] = await Promise.all([
-    getUsersRating(),
+    getUsersRating(limit),
     interaction.deferReply()
   ])
 
