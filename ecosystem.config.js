@@ -12,6 +12,7 @@ module.exports = {
   apps: [{
     name: 'main-discord-bot',
     script: 'dist/src/index.js',
+    restart_delay: 1000 * 60 * 2, // Every 2 minutes
     env: {
       DISCORD_BOT_TOKEN,
       OPENAI_API_KEY,
