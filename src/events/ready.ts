@@ -2,6 +2,7 @@ import { Client } from 'discord.js'
 
 import cronAddDailyPointsToMembers from '../../utils/discord/cron-add-daily-points-to-members'
 import cronUpdateTopRatedUsersRoles from '../../utils/discord/cron-update-top-rated-users-roles'
+import customHandler from '../../utils/discord/custom-handler'
 import refreshInteractionCommands   from '../../utils/discord/refresh-interaction-commands'
 import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members-with-database'
 
@@ -19,7 +20,8 @@ export default async function ready (client: Client) {
     syncGuildMembersWithDatabase(guild),
     refreshInteractionCommands(client.user),
     cronUpdateTopRatedUsersRoles(guild),
-    cronAddDailyPointsToMembers(guild)
+    cronAddDailyPointsToMembers(guild),
+    customHandler(client)
   ])
   
   console.log(`${client.user?.username} bot is ready!`)
