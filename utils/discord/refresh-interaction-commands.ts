@@ -10,7 +10,7 @@ const { DISCORD_BOT_TOKEN } = process.env
  * @param {ClientUser} bot - Discord Bot Client
  * @returns {Promise<void>}
  */
-export default function (bot: ClientUser) {
+export default function refreshInteractionCommands (bot: ClientUser) {
   const rest = new REST({ version: '10' }).setToken(DISCORD_BOT_TOKEN as string)
 
   const routeApplicationCommands = Routes.applicationCommands(bot.id)
