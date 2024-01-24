@@ -6,7 +6,9 @@ import { Client } from 'discord.js'
  * ...
  * @param {Client} client - Discord Client
  * @returns {Promise<void>}
- */// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ */
+// @ts-expect-error test
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async function customHandler (client: Client) {
   // do something
 }
