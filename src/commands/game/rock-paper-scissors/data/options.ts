@@ -14,7 +14,6 @@ export const weaponOption = new SlashCommandStringOption()
   .addChoices(...Object.values(weapons))
 
 export const timerOption = new SlashCommandNumberOption()
-  .setAutocomplete(true)
   .setName('timer')
   .setNameLocalizations({ 'uk': 'таймер', 'ru': 'таймер' })
   .setDescription('Time to join the game (in minutes). Resets on every new player join.')

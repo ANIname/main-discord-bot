@@ -13,6 +13,6 @@ export const data = new SlashCommandBuilder()
     'uk': 'Гра в камінь ножиці папір',
     'ru': 'Игра в камень ножницы бумага'
   })
+  .addStringOption(weaponOption)
   .addNumberOption(betOption)
   .addNumberOption(timerOption)
-  .addStringOption(weaponOption)
