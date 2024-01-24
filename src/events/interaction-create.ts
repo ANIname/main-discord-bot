@@ -3,7 +3,7 @@ import { ChatInputCommandInteraction, Client } from 'discord.js'
 import commands from '../commands'
 
 /**
- * InteractionCreate event
+ * Emitted when an interaction is created
  * @param {Client} _ - Discord Client
  * @param {ChatInputCommandInteraction} interaction - Discord Interaction
  */

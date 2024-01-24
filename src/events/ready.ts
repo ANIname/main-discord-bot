@@ -6,7 +6,7 @@ import refreshInteractionCommands   from '../../utils/discord/refresh-interactio
 import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members-with-database'
 
 /**
- * Ready event
+ * Emitted when the client becomes ready to start working
  * @param {Client} client - Discord Client
  */
 export default async function ready (client: Client) {

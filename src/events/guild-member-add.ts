@@ -17,7 +17,7 @@ export default function guildMemberAdd(_: Client, member: GuildMember) {
 }
 
 /**
- * Insert guild member to database
+ * Emitted whenever a user joins a guild
  * @param {Snowflake} memberId - Discord GuildMember id
  * @returns {Promise<void>} - Promise
  */
