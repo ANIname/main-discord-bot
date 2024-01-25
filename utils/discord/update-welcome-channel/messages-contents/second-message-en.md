@@ -1,0 +1,13 @@
+**Role Description:**
+
+<@&407889848192729089> - starting role. Given when entering the server. Allows you to see channels available to all members.
+<@&219564159702925312> - Given only to a narrow circle of trusted persons. Allows you to manage the server and fully control its life.
+<@&1199320057562529883> - Given to developers. Allows you to see channels available only to developers.
+<@&430049397934522378> - Given for activity on the server. Allows you to see channels available only to this role.
+<@&244505172737392651> - Given for server support. Allows you to see channels available only to VIPs.
+
+Roles by type
+<@&1197835786771501096>
+<@&1197902354993922189>
+<@&1197902446316494849>,
+are given automatically based on activity on the server. Indicate your place in the ranking, as well as the number of points. The top is kept from the first to the 100th place. (Updated once a minute)

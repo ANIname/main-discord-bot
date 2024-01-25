@@ -5,6 +5,7 @@ import cronUpdateTopRatedUsersRoles from '../../utils/discord/cron-update-top-ra
 import customHandler from '../../utils/discord/custom-handler'
 import refreshInteractionCommands   from '../../utils/discord/refresh-interaction-commands'
 import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members-with-database'
+import updateWelcomeChannel from '../../utils/discord/update-welcome-channel'
 
 /**
  * Emitted when the client becomes ready to start working
@@ -17,10 +18,11 @@ export default async function ready (client: Client) {
   if (!client.user) throw new Error('Bot is not logged in')
 
   await Promise.all([
-    syncGuildMembersWithDatabase(guild),
     refreshInteractionCommands(client.user),
+    syncGuildMembersWithDatabase(guild),
     cronUpdateTopRatedUsersRoles(guild),
     cronAddDailyPointsToMembers(guild),
+    updateWelcomeChannel(client),
     customHandler(client)
   ])
   

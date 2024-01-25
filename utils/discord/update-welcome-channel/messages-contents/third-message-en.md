@@ -1,0 +1,15 @@
+**Channels Description:**
+
+★ Information channels: 
+<#1200003444224839680> - A brief description of the server in different languages
+<#790256904101298176> - Server rules in different languages
+<#790261124552589332> - News for moderators and administrators. Channel with discord announcements. The channel is needed so that, for example, I as a developer keep my finger on the pulse and can either update the existing functionality of the bot, or add a new one. The channel is not visible to everyone
+
+✎ Communication channels:
+<#431793730257944577> - Main channel for text communication.
+<#615643942888931329> - Main channel for voice communication.
+<#1199311023140765738> - Channels for collecting lobbies for games. They are needed in order to unite for the game and not be afraid that someone will interfere.
+
+＝ Other channels:
+<#1173982574352269482> - main channel for tests. There is no point in displaying the channel for everyone, so access to it is only available to some roles on the server. For example, for the role <@&219564159702925312>
+<#1199361811913392129> - Channels for logging actions in git repositories. For example, in the channel <#1199361891072491650> it is shown when the bot was last updated and what was added / changed / deleted. Access to these channels can be obtained by having the role <@&1199320057562529883>
