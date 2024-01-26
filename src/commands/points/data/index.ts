@@ -10,8 +10,8 @@ export const data = new SlashCommandBuilder()
   .setNameLocalizations({ 'uk': 'очки', 'ru': 'очки' })
   .setDescription('Points management')
   .setDescriptionLocalizations({
-    'uk': 'Керування очками учасників серверу',
-    'ru': 'Управление очками участников сервера'
+    'uk': 'Керування очками учасників гільдії',
+    'ru': 'Управление очками участников гильдии'
   })
   .addSubcommand(addPointsSubcommand)
   .addSubcommand(removePointsSubcommand)

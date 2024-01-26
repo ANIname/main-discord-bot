@@ -1,7 +1,7 @@
 {
   "name": "main-discord-bot",
   "version": "1.0.0",
-  "description": "Backend for Discord bot for our discord server: https://discord.gg/ADFYZtJ",
+  "description": "Backend for Discord bot for our discord guild: https://discord.gg/ADFYZtJ",
   "keywords": [
     "aniname",
     "discord",

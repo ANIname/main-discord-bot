@@ -1,7 +1,7 @@
 import { Client } from 'discord.js'
 
 /**
- * This function is only necessary for performing actions on the server as a bot,
+ * This function is only necessary for performing actions on the guild as a bot,
  * such as updating rules or sending messages or something else.
  * ...
  * @param {Client} client - Discord Client
