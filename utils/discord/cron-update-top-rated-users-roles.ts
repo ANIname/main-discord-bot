@@ -20,9 +20,6 @@ export default async (guild: Guild) => new CronJob('0 * * * * *', async () => {
   guildRoles.forEach((role) => {
     if (!startsWith(role.name, 'Top Rated User #')) return
 
-    // 16777169
-    // console.log(role.color, role.name)
-
     const roleNumber = Number((role.name.split(' ')[3] || '').replace('#', ''))
     const points = usersRating[roleNumber - 1]?.totalPoints || 0
 
