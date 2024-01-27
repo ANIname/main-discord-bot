@@ -7,4 +7,6 @@ export default async function updateRoleName (currentRoleName: string, newRoleNa
   console.info(`Updating role name for role ${role.name}`)
 
   await Promise.resolve(role.setName(newRoleName)).timeout(5000)
+
+  await Promise.delay(35000)
 }

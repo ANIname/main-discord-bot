@@ -17,4 +17,6 @@ export default async function updateRoleMember (currentRoleMember: GuildMember |
 
     await Promise.resolve(addMemberToRole).timeout(5000)
   }
+
+  await Promise.delay(35000)
 }

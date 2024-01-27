@@ -21,7 +21,7 @@ export default async (guild: Guild) => new CronJob('* * * * * *', async () => {
 
     // Log every minute
     return (tryings % 60 === 0)
-      ? console.warn(`Previous (${tryings} seconds) CronJob is already running`)
+      ? console.warn(`Previous CronJob is still running (${tryings} seconds)`)
       : undefined
   }
 
@@ -48,10 +48,17 @@ export default async (guild: Guild) => new CronJob('* * * * * *', async () => {
     const currentRoleMember  = role.members.first()
     const currentRoleMembers = role.members.map((member) => member)
 
-    await deleteMembersFromUnusedRole(currentRoleMembers, userRating, role)
-    await deleteRoleMembersIfLengthIsMoreThanOne(currentRoleMembers, role)
-    await updateRoleMember(currentRoleMember, newRoleMember, role)
-    await updateRoleName(currentRoleName, newRoleName, role)
+    try {
+      await deleteMembersFromUnusedRole(currentRoleMembers, userRating, role)
+      await deleteRoleMembersIfLengthIsMoreThanOne(currentRoleMembers, role)
+      await updateRoleMember(currentRoleMember, newRoleMember, role)
+      await updateRoleName(currentRoleName, newRoleName, role)
+    } catch (error) {
+      isLoopRunning = false
+      tryings = 0
+
+      throw error
+    }
   }
 
   isLoopRunning = false

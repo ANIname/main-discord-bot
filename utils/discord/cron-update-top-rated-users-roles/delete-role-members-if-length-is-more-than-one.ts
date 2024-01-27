@@ -10,5 +10,7 @@ export default async function deleteRoleMembersIfLengthIsMoreThanOne (currentRol
     const removeMemberFromRole = roleMember.roles.remove(role)
 
     await Promise.resolve(removeMemberFromRole).timeout(5000)
+
+    await Promise.delay(35000)
   }
 }
