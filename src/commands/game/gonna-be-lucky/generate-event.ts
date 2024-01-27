@@ -1,4 +1,4 @@
-import { UserMention } from 'discord.js'
+import { ChatInputCommandInteraction, UserMention, TextChannel } from 'discord.js'
 
 import openAi        from '../../../../services/open-ai'
 import getPrompt     from './get-prompt'
@@ -6,14 +6,28 @@ import { GameEvent } from './types.d'
 
 /**
  * Generates a random event and gives or takes away points
- * @param {UserMention} mention - Discord user mention
+ * @param {ChatInputCommandInteraction} interaction - Discord Interaction
  * @returns {Promise<GameEvent>} - Game event
  */
-export default async function generateEvent(mention: UserMention): Promise<GameEvent> {
+export default async function generateEvent(interaction: ChatInputCommandInteraction): Promise<GameEvent> {
+  const mention: UserMention = `<@${interaction.user.id}>`
+  
   const result = await openAi.chat.completions.create({
     model: 'gpt-4',
     messages: [{ role: 'system', content: getPrompt(mention) }]
   })
 
-  return JSON.parse(result.choices[0]?.message.content || '{}') 
+  try {
+    return JSON.parse(result.choices[0]?.message.content || '{}') 
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      const errorsChannel = interaction.client.channels.cache.get('1200763445474238524') as TextChannel
+
+      await errorsChannel.send(`\`\`\`json\n${JSON.stringify(result, null, 2)}\`\`\``)
+
+      return generateEvent(interaction)
+    }
+
+    throw error
+  }
 }

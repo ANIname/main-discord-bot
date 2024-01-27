@@ -29,7 +29,7 @@ export async function execute(interaction: ChatInputCommandInteraction): Promise
 
   const [game, event] = await Promise.all([
     getUserMainGameDataOrInsertNew({ discordId: userDiscordId }, 'gonnaBeLucky'),
-    generateEvent(`<@${userDiscordId}>`),
+    generateEvent(interaction),
     interaction.deferReply()
   ])
 
