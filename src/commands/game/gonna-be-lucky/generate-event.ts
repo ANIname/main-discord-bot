@@ -23,7 +23,11 @@ export default async function generateEvent(interaction: ChatInputCommandInterac
     if (error instanceof SyntaxError) {
       const errorsChannel = interaction.client.channels.cache.get('1200763445474238524') as TextChannel
 
-      await errorsChannel.send(`Ошибка при парсинге JSON объекта. Событие не было добавлено в игру. Вот что сгенерировал бот:\n${result.choices[0]?.message.content}`)
+      await errorsChannel.send(
+        'Ошибка при парсинге JSON объекта. Событие не было добавлено в игру.' +
+        `\nВот что сгенерировал бот:\n${result.choices[0]?.message.content}.` +
+        `\nТекст ошибки: ${error}`
+      )
 
       return generateEvent(interaction)
     }
