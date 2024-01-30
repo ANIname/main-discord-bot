@@ -1,7 +1,6 @@
 import { Client } from 'discord.js'
 
 import cronAddDailyPointsToMembers from '../../utils/discord/cron-add-daily-points-to-members'
-import cronUpdateTopRatedUsersRoles from '../../utils/discord/cron-update-top-rated-users-roles'
 import customHandler from '../../utils/discord/custom-handler'
 import refreshInteractionCommands   from '../../utils/discord/refresh-interaction-commands'
 import refreshInfoChannelsTexts from '../../utils/discord/refresh-info-channels-texts'
@@ -21,7 +20,6 @@ export default async function ready (client: Client) {
     refreshInteractionCommands(client.user),
     refreshInfoChannelsTexts(guild),
     syncGuildMembersWithDatabase(guild),
-    cronUpdateTopRatedUsersRoles(guild),
     cronAddDailyPointsToMembers(guild),
     customHandler(client)
   ])
