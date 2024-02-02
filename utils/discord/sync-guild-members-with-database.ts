@@ -22,7 +22,7 @@ export default async function syncGuildMembersWithDatabase (guild: Guild) {
     const id   = uuid.v4()
     const user = guildMembers.get(discordId)
 
-    return { id, discordId, createdAt: user?.joinedAt }
+    return { id, discordId, createdAt: user?.joinedAt, isBot: user?.user.bot || false }
   })
 
   return usersToCreate.length > 0
