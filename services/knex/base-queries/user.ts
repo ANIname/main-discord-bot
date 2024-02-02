@@ -72,6 +72,8 @@ export async function getUsersRating (limit = 10): Promise<UserRating[]> {
     .leftJoin('Game', 'User.id', 'Game.userId')
     .select('User.discordId')
     .groupBy('User.discordId')
+    .where('User.isBot', false)
+    .whereNotNull('User.discordId')
 
   const havingRawParts:  string[] = []
   const orderByRawParts: string[] = []
