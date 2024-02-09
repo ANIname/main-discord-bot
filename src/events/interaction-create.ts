@@ -1,18 +1,27 @@
-import { ChatInputCommandInteraction, Client } from 'discord.js'
+import { ChatInputCommandInteraction, ContextMenuCommandInteraction, Client } from 'discord.js'
 
 import commands from '../commands'
+import contextMenuCommands from '../context-menu'
 
 /**
  * Emitted when an interaction is created
  * @param {Client} _ - Discord Client
  * @param {ChatInputCommandInteraction} interaction - Discord Interaction
  */
-export default function interactionCreate(_: Client, interaction: ChatInputCommandInteraction) {
-  if (!interaction.isChatInputCommand()) return
-  
-  const command = commands[interaction.commandName]
+export default function interactionCreate(_: Client, interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
+  if (interaction.isChatInputCommand()) {
+    const command = commands[interaction.commandName]
 
-  if (!command) return
+    if (command) command.execute(interaction)
 
-  command.execute(interaction)
+    return
+  }
+
+  if (interaction.isContextMenuCommand()) {
+    const command = contextMenuCommands[interaction.commandName]
+
+    if (command) command.execute(interaction)
+
+    return
+  }
 }
