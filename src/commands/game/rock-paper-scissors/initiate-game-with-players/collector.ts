@@ -1,11 +1,12 @@
 import { ActionRowBuilder, EmbedBuilder, Message, StringSelectMenuBuilder,StringSelectMenuInteraction } from 'discord.js'
 
-import { updateGameData } from '../../../../../services/knex/base-queries/game-data'
-import { getUserMainGameDataOrInsertNew } from '../../../../../services/knex/base-queries/user'
-import playGame from '../play-game'
-import { getUserPlayer } from '../player'
+import { updateGameData }                                  from '../../../../../services/knex/base-queries/game-data'
+import { getUserMainGameDataOrInsertNew }                  from '../../../../../services/knex/base-queries/user'
+import playGame                                            from '../play-game'
+import { getUserPlayer }                                   from '../player'
 import { GameOptions, InteractionOptions, Player, Weapon } from '../types.d'
-import { addPlayer, updateEmbedToGameFinished } from './embed'
+
+import { addPlayer, updateEmbedToGameFinished }                               from './embed'
 import { replyThatPlayerAlreadyInGame, replyThatPlayerPlayerPointsNotEnough } from './reply'
 
 /**

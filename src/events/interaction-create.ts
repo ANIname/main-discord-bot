@@ -1,6 +1,6 @@
-import { ChatInputCommandInteraction, ContextMenuCommandInteraction, Client } from 'discord.js'
+import { ChatInputCommandInteraction, Client, ContextMenuCommandInteraction } from 'discord.js'
 
-import commands from '../commands'
+import commands            from '../commands'
 import contextMenuCommands from '../context-menu'
 
 /**
@@ -21,7 +21,5 @@ export default function interactionCreate(_: Client, interaction: ChatInputComma
     const command = contextMenuCommands[interaction.commandName]
 
     if (command) command.execute(interaction)
-
-    return
   }
 }

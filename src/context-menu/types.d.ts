@@ -1,5 +1,4 @@
-import { ContextMenuCommandInteraction, ContextMenuCommandBuilder } from 'discord.js'
-
+import { ContextMenuCommandBuilder, ContextMenuCommandInteraction } from 'discord.js'
 
 export type ContextMenuItemName = string
 export type ContextMenuItemHandler = (interaction: ContextMenuCommandInteraction) => Promise<void>

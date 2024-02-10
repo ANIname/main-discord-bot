@@ -1,5 +1,5 @@
 import { updatePlayerStatus } from './player'
-import { Player, Weapon } from './types.d'
+import { Player, Weapon }     from './types.d'
 
 /**
  * Check does user win

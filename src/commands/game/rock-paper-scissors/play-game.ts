@@ -1,7 +1,7 @@
-import checkDoesUserWin from './check-does-user-win'
+import checkDoesUserWin       from './check-does-user-win'
 import { updatePlayerStatus } from './player'
-import { Player } from './types.d'
-import weapons from './weapons.json'
+import { Player }             from './types.d'
+import weapons                from './weapons.json'
 
 /**
  * Play game

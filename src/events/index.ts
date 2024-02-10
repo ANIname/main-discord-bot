@@ -2,7 +2,8 @@ import { directoryImport } from 'directory-import'
 import { ClientEvents }    from 'discord.js'
 import camelCase           from 'lodash/camelCase.js'
 
-import { client }           from '../client'
+import { client } from '../client'
+
 import { Event, EventData } from './types.d'
 
 /**

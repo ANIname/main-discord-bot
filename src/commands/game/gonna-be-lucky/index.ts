@@ -1,11 +1,12 @@
 import { ChatInputCommandInteraction, InteractionResponse, Message } from 'discord.js'
 
-import { updateGameData } from '../../../../services/knex/base-queries/game-data'
+import { updateGameData }                 from '../../../../services/knex/base-queries/game-data'
 import { getUserMainGameDataOrInsertNew } from '../../../../services/knex/base-queries/user'
-import generateEvent from './generate-event'
+
+import generateEvent       from './generate-event'
 import replyThatNeedToWait from './reply-that-need-to-wait'
-import replyWithEvent from './reply-with-event'
-import { GameTimeOut } from './types.d'
+import replyWithEvent      from './reply-with-event'
+import { GameTimeOut }     from './types.d'
 
 const timeOut = 1000 * 60 * 60 // 1 hour
 
@@ -20,10 +21,8 @@ export * from './data'
  */
 export async function execute(interaction: ChatInputCommandInteraction): Promise<InteractionResponse<boolean> | Message<boolean>> {
   const userDiscordId = interaction.user.id
-
-  // eslint-disable-next-line security/detect-object-injection
-  const timeOutEnd = gameTimeOut[userDiscordId] as Date | undefined
-  const needToWait = timeOutEnd && Date.now() - timeOutEnd.getTime() < timeOut
+  const timeOutEnd    = gameTimeOut[userDiscordId] as Date | undefined
+  const needToWait    = timeOutEnd && Date.now() - timeOutEnd.getTime() < timeOut
 
   if (needToWait) return replyThatNeedToWait(interaction, timeOut, timeOutEnd)
 
@@ -38,7 +37,6 @@ export async function execute(interaction: ChatInputCommandInteraction): Promise
     replyWithEvent(interaction, event)
   ])
 
-  // eslint-disable-next-line security/detect-object-injection
   gameTimeOut[userDiscordId] = new Date()
 
   return interactionResponse

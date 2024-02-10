@@ -1,7 +1,7 @@
 import { LocaleString } from 'discord.js'
 
 import { Player } from '../types.d'
-import weapons from '../weapons.json'
+import weapons    from '../weapons.json'
 
 type SupportedLocale = 'uk' | 'ru' | 'en-US'
 type AvailableLocalesNames = keyof typeof locales
@@ -35,7 +35,6 @@ const locales = {
 export function getPlayerChoice(locale: LocaleString, player: Player): string {
   const localeString = availableLocales.has(locale) ? locale as SupportedLocale : 'en-US'
 
-  // eslint-disable-next-line security/detect-object-injection
   return weapons[player.weapon].name_localizations[localeString]
 }
 
@@ -50,6 +49,5 @@ export function getPlayerChoice(locale: LocaleString, player: Player): string {
 export function getLocalisedMessage(locale: LocaleString, localeName: AvailableLocalesNames, userPlayerChoice: string, botPlayerChoice: string): string {
   const localeString = availableLocales.has(locale) ? locale as SupportedLocale : 'en-US'
 
-  // eslint-disable-next-line security/detect-object-injection
   return locales[localeName][localeString](userPlayerChoice, botPlayerChoice)
 }

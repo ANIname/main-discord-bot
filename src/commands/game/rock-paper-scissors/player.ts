@@ -1,7 +1,14 @@
 import { ChatInputCommandInteraction, StringSelectMenuInteraction } from 'discord.js'
 
 import { getUserId, getUserTotalPoints } from '../../../../services/knex/base-queries/user'
-import { GameStatus, InteractionOptions, Player, Weapon } from './types.d'
+
+import {
+  GameStatus,
+  InteractionOptions,
+  Player,
+  Weapon
+} from './types.d'
+
 import weapons from './weapons.json'
 
 const getRandomWeaponNumber = (): number => Math.floor(Math.random() * Object.keys(weapons).length)

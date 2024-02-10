@@ -1,7 +1,7 @@
-import declineWord from 'decline-word'
+import declineWord                                           from 'decline-word'
 import { ChatInputCommandInteraction, GuildMember, Message } from 'discord.js'
 
-import { updateGameData } from '../../../services/knex/base-queries/game-data'
+import { updateGameData }                 from '../../../services/knex/base-queries/game-data'
 import { getUserMainGameDataOrInsertNew } from '../../../services/knex/base-queries/user'
 
 type SupportedLocale = 'uk' | 'ru' | 'en-US'
@@ -22,9 +22,9 @@ const messageLocales = {
 export default async function addPoints(interaction: ChatInputCommandInteraction): Promise<Message<boolean>> {
   const localeString = availableLocales.has(interaction.locale) ? interaction.locale as SupportedLocale : 'en-US'
 
-  const member = interaction.options.getMember('member') as GuildMember
-  const points = interaction.options.getNumber('amount', true)
-  const reason = interaction.options.getString('reason', true)
+  const member      = interaction.options.getMember('member') as GuildMember
+  const points      = interaction.options.getNumber('amount', true)
+  const reason      = interaction.options.getString('reason', true)
   const sendMessage = interaction.options.getBoolean('send-message', true)
 
   const gameData = await getUserMainGameDataOrInsertNew({ discordId: member.id }, 'discordGuild')
@@ -41,8 +41,5 @@ export default async function addPoints(interaction: ChatInputCommandInteraction
     )
   }
 
-  return interaction.editReply({
-    // eslint-disable-next-line security/detect-object-injection
-    content: messageLocales[localeString](member, points, reason)
-  })
+  return interaction.editReply({ content: messageLocales[localeString](member, points, reason) })
 }

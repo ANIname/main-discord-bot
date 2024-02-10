@@ -1,4 +1,5 @@
 import { Client, GuildMember, Snowflake } from 'discord.js'
+
 import * as uuid from 'uuid'
 
 import knex from '../../services/knex'

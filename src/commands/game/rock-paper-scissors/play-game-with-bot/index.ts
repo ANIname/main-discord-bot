@@ -1,8 +1,9 @@
 import { ChatInputCommandInteraction, Message } from 'discord.js'
 
-import playGame from '../play-game'
+import playGame                        from '../play-game'
 import { getBotPlayer, getUserPlayer } from '../player'
-import { InteractionOptions } from '../types.d'
+import { InteractionOptions }          from '../types.d'
+
 import replyWithResult from './reply-with-result'
 
 /**

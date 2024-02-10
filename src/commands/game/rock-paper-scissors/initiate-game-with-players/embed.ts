@@ -1,9 +1,10 @@
-import declineWord from 'decline-word'
 import { EmbedBuilder, GuildMember, Snowflake } from 'discord.js'
+
+import declineWord from 'decline-word'
 
 import { InteractionOptions, Player } from '../types.d'
 
-export default (member: GuildMember): EmbedBuilder => new EmbedBuilder()
+export const prepareEmbed = (member: GuildMember): EmbedBuilder => new EmbedBuilder()
   .setColor(member.displayHexColor)
   .setAuthor({ name: 'Камень, ножницы, бумага', iconURL: 'https://cdn.discordapp.com/attachments/413313254354583557/1195690644123955270/rock-paper-scissors-logo.png' })
   .setDescription('Ожидание соперника для игры в: "Камень, ножницы, бумага"')

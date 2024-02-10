@@ -1,6 +1,6 @@
 import { directoryImport } from 'directory-import'
 
-import { ContextMenuItem, ContextMenu } from './types.d'
+import { ContextMenu, ContextMenuItem } from './types.d'
 
 const contextMenu: ContextMenu = {}
 

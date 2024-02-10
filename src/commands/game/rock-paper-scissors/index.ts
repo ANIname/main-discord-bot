@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, Message } from 'discord.js'
 
-import initiateGameWithPlayers from './initiate-game-with-players'
-import playGameWithBot from './play-game-with-bot'
+import initiateGameWithPlayers   from './initiate-game-with-players'
+import playGameWithBot           from './play-game-with-bot'
 import prepareInteractionOptions from './prepare-interaction-options'
 
 export * from './data'

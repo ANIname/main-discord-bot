@@ -1,11 +1,20 @@
 import { ChatInputCommandInteraction, GuildMember, Message, TextChannel } from 'discord.js'
 
-import { getUserPlayer } from '../player'
+import { getUserPlayer }      from '../player'
 import { InteractionOptions } from '../types.d'
-import useCollector from './collector'
-import prepareEmbed, { addFieldIfBetSpecified, addFieldIfTimerSpecified, addFirstPlayer, removeEmptySpace } from './embed'
-import getMenuComponent from './get-menu-component'
+
+import {
+  addFieldIfBetSpecified,
+  addFieldIfTimerSpecified,
+  addFirstPlayer,
+  prepareEmbed,
+  removeEmptySpace
+} from './embed'
+
 import { replyThatPlayerPlayerPointsNotEnough } from './reply'
+
+import useCollector     from './collector'
+import getMenuComponent from './get-menu-component'
 
 /**
  * Initiates the game

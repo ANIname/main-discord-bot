@@ -1,6 +1,6 @@
 import { UserMention } from 'discord.js'
 
-export default (mention: UserMention) => [
+const prepareEventsExamples = (mention: UserMention) => [
   {
     data: `${mention} решил прогуляться и потерял кошелёк.`,
     points: -150,
@@ -27,3 +27,5 @@ export default (mention: UserMention) => [
     declination: 'очка'
   }
 ]
+
+export default prepareEventsExamples;

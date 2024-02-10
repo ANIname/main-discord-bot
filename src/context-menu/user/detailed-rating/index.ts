@@ -1,18 +1,18 @@
 import { ContextMenuCommandInteraction, InteractionResponse, Message, TextChannel } from 'discord.js'
+
 import { pascal as pascalCase } from 'case'
-import camelCase from 'lodash/camelCase'
-import forEach from 'lodash/forEach'
-import map from 'lodash/map'
-import reduce from 'lodash/reduce'
-import find from 'lodash/find'
+
 import startsWith from 'lodash/startsWith'
+import camelCase  from 'lodash/camelCase'
+import find       from 'lodash/find'
+import forEach    from 'lodash/forEach'
+import map        from 'lodash/map'
+import reduce     from 'lodash/reduce'
 
-import { getUserId } from '../../../../services/knex/base-queries/user'
+import knex               from '../../../../services/knex'
+import { getUserId }      from '../../../../services/knex/base-queries/user'
 import { availableGames } from '../../../../services/knex/enum'
-
-import knex from '../../../../services/knex'
-import openAi from '../../../../services/open-ai'
-
+import openAi             from '../../../../services/open-ai'
 import { commandTimeOut } from '../../types.d'
 
 const timeOut = 1000 * 60 // 5 minute
@@ -27,7 +27,6 @@ export * from './data'
  * @returns {Promise<InteractionResponse<boolean> | Message<boolean>>} - Promise
  */
 export async function execute(interaction: ContextMenuCommandInteraction): Promise<InteractionResponse<boolean> | Message<boolean>> {
-  // eslint-disable-next-line security/detect-object-injection
   const timeOutEnd = commandTimeOut[interaction.user.id] as Date | undefined
   const needToWait = timeOutEnd && Date.now() - timeOutEnd.getTime() < timeOut
 
@@ -62,13 +61,15 @@ export async function execute(interaction: ContextMenuCommandInteraction): Promi
 
     const totalPoints = reduce(userGames, (accumulator, game) => accumulator + game.points, 0)
 
+    // eslint-disable-next-line sonarjs/no-unused-collection
     const discordGuildEvents = []
 
     const promises = map(userGames, async (userGame) => {
       const pascalGameName = pascalCase(`Game-${userGame.title}`)
-      const camelGameName = camelCase(`Game-${userGame.title}`)
+      const camelGameName  = camelCase(`Game-${userGame.title}`)
 
       const gameEvents = await knex(`${pascalGameName}Event`)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         .where({ [`${camelGameName}Id`]: userGame.gameId })
 
       if (userGame.title === 'discordGuild') {
@@ -89,27 +90,33 @@ export async function execute(interaction: ContextMenuCommandInteraction): Promi
       prompt += '\n* Очки в игре ' + userGame.title + ': ' + userGame.points
     })
     
-    const discordGuildPoints = find(userGamesWithEvents, { title: 'discordGuild' })
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const discordGuildPoints         = find(userGamesWithEvents, { title: 'discordGuild' })
     const combinedDiscordGuildEvents = reduce(discordGuildPoints.events, (accumulator, event) => {
-      // @ts-expect-error
-      if (!accumulator[event.reason]) {
-        // @ts-expect-error
-        accumulator[event.reason] = { ...event, count: 1 }
-      } else {
-        // @ts-expect-error
+      // @ts-expect-error - test
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      if (accumulator[event.reason]) {
+        // @ts-expect-error - test
         accumulator[event.reason].points += event.points
-        // @ts-expect-error
+
+        // @ts-expect-error - test
         accumulator[event.reason].count += 1
+      } else {
+        // @ts-expect-error - test
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        accumulator[event.reason] = { ...event, count: 1 }
       }
 
       return accumulator
     }, {})
 
-    // @ts-expect-error
+    // @ts-expect-error - test
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const dalyEvent = combinedDiscordGuildEvents['Ежедневное бонусное очко']
     const joinEvent = find(combinedDiscordGuildEvents, ({ reason }) => startsWith(reason, 'За присоединение к серверу'))
 
-    // @ts-expect-error
+    // @ts-expect-error - test
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const dalyPoints = joinEvent.points + dalyEvent.points
 
     prompt += `\nТак-же за активность на сервере, участник получил ${discordGuildPoints.points} очков. Вот события за которые участник получил ${discordGuildPoints.points} очков:`
@@ -117,12 +124,12 @@ export async function execute(interaction: ContextMenuCommandInteraction): Promi
     // + '\nпо одному очку за каждый день с момента присоединения к серверу, участник получил ' + dalyPoints + ' очков.'
 
     forEach(combinedDiscordGuildEvents, (event) => {
-      // @ts-expect-error
+      // @ts-expect-error - test
       if (event.reason === 'Ежедневное бонусное очко') return
-      // @ts-expect-error
+      // @ts-expect-error - test
       if (startsWith(event.reason, 'За присоединение к серверу')) return
 
-      // @ts-expect-error
+      // @ts-expect-error - test
       prompt += `\n* ${event.reason} - ${event.count} раз. Итого: ${event.points} очков`
     })
 
@@ -150,7 +157,7 @@ export async function execute(interaction: ContextMenuCommandInteraction): Promi
   } catch (error) {
     const textChannel = await interaction.guild?.channels.cache.get('1173982574352269482') as TextChannel
 
-    // @ts-expect-error
+    // @ts-expect-error - test
     await textChannel.send({ content: `Бот пытался сгенерировать отчёт о пользователе <@${interaction.targetId}>. На столкнулся с ошибкой: ${error.message}` })
 
     throw error

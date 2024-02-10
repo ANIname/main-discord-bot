@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, Message } from 'discord.js'
 
 import {  Player } from '../types.d'
+
 import { getLocalisedMessage, getPlayerChoice } from './locales'
 
 /**
@@ -12,8 +13,8 @@ import { getLocalisedMessage, getPlayerChoice } from './locales'
 export default function replyWithResult(interaction: ChatInputCommandInteraction, players: Player[]): Promise<Message<boolean>> {
   const [userPlayer, botPlayer] = players as [Player, Player]
 
-  const isDraw           = userPlayer.status === 'draw'
-  const doesPlayerWin    = userPlayer.status === 'win'
+  const isDraw        = userPlayer.status === 'draw'
+  const doesPlayerWin = userPlayer.status === 'win'
 
   const userPlayerChoice = getPlayerChoice(interaction.locale, userPlayer)
   const botPlayerChoice  = getPlayerChoice(interaction.locale, botPlayer)

@@ -1,8 +1,8 @@
 import { ChatInputCommandInteraction, Message } from 'discord.js'
 
-import addPoints from './add'
+import addPoints    from './add'
 import removePoints from './remove'
-import setPoints from './set'
+import setPoints    from './set'
 
 const subCommands = {
   add: addPoints,
@@ -24,6 +24,5 @@ export async function execute(interaction: ChatInputCommandInteraction): Promise
   
   const subCommand = interaction.options.getSubcommand() as InteractionSubCommand
 
-  // eslint-disable-next-line security/detect-object-injection
   return subCommands[subCommand](interaction)
 }

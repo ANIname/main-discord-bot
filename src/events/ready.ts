@@ -2,8 +2,8 @@ import { Client } from 'discord.js'
 
 import cronAddDailyPointsToMembers  from '../../utils/discord/cron-add-daily-points-to-members'
 import customHandler                from '../../utils/discord/custom-handler'
-import refreshInteractionCommands   from '../../utils/discord/refresh-interaction-commands'
 import refreshInfoChannelsTexts     from '../../utils/discord/refresh-info-channels-texts'
+import refreshInteractionCommands   from '../../utils/discord/refresh-interaction-commands'
 import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members-with-database'
 
 /**

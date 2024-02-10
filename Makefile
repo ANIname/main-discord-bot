@@ -22,4 +22,5 @@ npm-update:
 
 cleanUp:
 	@rm -rf dist
+	@npx eslint src --fix
 	@npx tsc

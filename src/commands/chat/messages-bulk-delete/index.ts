@@ -1,5 +1,6 @@
-import declineWord from 'decline-word'
 import { ChatInputCommandInteraction, TextChannel } from 'discord.js'
+
+import declineWord from 'decline-word'
 
 export * from './data'
 
