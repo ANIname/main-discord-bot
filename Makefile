@@ -4,6 +4,12 @@ app:
 	@make cleanUp
 	@node dist/utils/make/app.js
 
+prisma:
+	@make npm-install-if-not-exists
+	@make cleanUp
+	@curl -o services/prisma/schema.prisma https://raw.githubusercontent.com/ANIname/architecture/prod/db/postgresql/schema.prisma
+	@node dist/utils/make/prisma.js
+
 # NPM Commands
 npm:
 	@make npm-install-if-not-exists

@@ -4,7 +4,7 @@ import initiateGameWithPlayers   from './initiate-game-with-players'
 import playGameWithBot           from './play-game-with-bot'
 import prepareInteractionOptions from './prepare-interaction-options'
 
-export * from './data'
+export const commandName = 'rock-paper-scissors'
 
 /**
  * Generates a random event and gives or takes away points

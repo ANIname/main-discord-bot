@@ -2,7 +2,7 @@ import { ChatInputCommandInteraction, TextChannel } from 'discord.js'
 
 import declineWord from 'decline-word'
 
-export * from './data'
+export const commandName = 'messages-bulk-delete'
 
 /**
  * Bulk delete messages

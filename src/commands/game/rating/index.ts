@@ -2,7 +2,7 @@ import { ChatInputCommandInteraction, InteractionResponse, Message } from 'disco
 
 import { getUsersRating } from '../../../../services/knex/base-queries/user'
 
-export * from './data'
+export const commandName = 'rating'
 
 /**
  * Generates a random event and gives or takes away points

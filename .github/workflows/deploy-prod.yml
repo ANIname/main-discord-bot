@@ -33,6 +33,7 @@ jobs:
             export POSTGRES_USER="${{ secrets.POSTGRES_USER }}"
             export POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}"
             export POSTGRES_DATABASE="${{ secrets.POSTGRES_DATABASE }}"
+            export POSTGRES_URL="${{ secrets.POSTGRES_URL }}"
 
             cd main-discord-bot
             git pull
@@ -40,4 +41,6 @@ jobs:
             rm -rf dist
             npx tsc
             cp -R static dist
+            curl -o dist/services/prisma/schema.prisma https://raw.githubusercontent.com/ANIname/architecture/prod/db/postgresql/schema.prisma
+            npx prisma generate --schema=./services/prisma/schema.prisma
             npx pm2 reload ecosystem.config.js --update-env || npx pm2 start ecosystem.config.js

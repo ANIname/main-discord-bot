@@ -1,7 +1,6 @@
 import { ChatInputCommandInteraction, Client, ContextMenuCommandInteraction } from 'discord.js'
 
-import commands            from '../commands'
-import contextMenuCommands from '../context-menu'
+import commands from '../commands'
 
 /**
  * Emitted when an interaction is created
@@ -9,17 +8,10 @@ import contextMenuCommands from '../context-menu'
  * @param {ChatInputCommandInteraction} interaction - Discord Interaction
  */
 export default function interactionCreate(_: Client, interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
-  if (interaction.isChatInputCommand()) {
-    const command = commands[interaction.commandName]
-
-    if (command) command.execute(interaction)
-
-    return
-  }
-
-  if (interaction.isContextMenuCommand()) {
-    const command = contextMenuCommands[interaction.commandName]
-
-    if (command) command.execute(interaction)
-  }
+  // TODO проверить можно ли изменить условие
+  if (!interaction.isChatInputCommand() && !interaction.isContextMenuCommand()) return
+  
+  const command = commands[interaction.commandName]
+  
+  if (command) command(interaction)
 }

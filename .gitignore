@@ -6,3 +6,5 @@ node_modules
 # Exclude all .env files except .env.example
 .env**
 !.env.example
+
+services/prisma/schema.prisma

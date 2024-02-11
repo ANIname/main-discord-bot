@@ -5,7 +5,8 @@ const {
   POSTGRES_HOST,
   POSTGRES_USER,
   POSTGRES_PASSWORD,
-  POSTGRES_DATABASE
+  POSTGRES_DATABASE,
+  POSTGRES_URL
 } = process.env
 
 module.exports = {
@@ -20,7 +21,8 @@ module.exports = {
       POSTGRES_HOST,
       POSTGRES_USER,
       POSTGRES_PASSWORD,
-      POSTGRES_DATABASE
+      POSTGRES_DATABASE,
+      POSTGRES_URL
     }
   }]
 }

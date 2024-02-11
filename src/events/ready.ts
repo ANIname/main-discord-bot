@@ -3,7 +3,6 @@ import { Client } from 'discord.js'
 import cronAddDailyPointsToMembers  from '../../utils/discord/cron-add-daily-points-to-members'
 import customHandler                from '../../utils/discord/custom-handler'
 import refreshInfoChannelsTexts     from '../../utils/discord/refresh-info-channels-texts'
-import refreshInteractionCommands   from '../../utils/discord/refresh-interaction-commands'
 import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members-with-database'
 
 /**
@@ -19,7 +18,6 @@ export default async function ready (client: Client) {
   console.log(`Logged in as ${client.user?.tag}!`)
 
   await Promise.all([
-    refreshInteractionCommands(client.user),
     refreshInfoChannelsTexts(guild),
     syncGuildMembersWithDatabase(guild),
     cronAddDailyPointsToMembers(guild),

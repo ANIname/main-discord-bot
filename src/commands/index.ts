@@ -5,13 +5,11 @@ import { Command, Commands } from './types.d'
 const commands: Commands = {}
 
 // Import all commands from the commands directory and add them to the commands object
-// Example: ./commands/test/ping.ts => commands['ping'] = { data: { ... }, execute: () => { ... } }
+// Example: ./commands/game/gonna-be-lucky.ts => commands['gonna-be-lucky'] = { commandName: 'gonna-be-lucky', execute: (...) => { ... } }
 directoryImport((_, __, moduleData) => {
-  const { data, execute } = moduleData as Command
+  const { commandName, execute } = moduleData as Command
 
-  if (!data || !execute) return
-
-  commands[data.name] = { data, execute }
+  if (commandName && execute) commands[commandName] = execute
 })
 
 export default commands

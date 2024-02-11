@@ -12,7 +12,7 @@ const timeOut = 1000 * 60 * 60 // 1 hour
 
 const gameTimeOut: GameTimeOut = {}
 
-export * from './data'
+export const commandName = 'gonna-be-lucky'
 
 /**
  * Generates a random event and gives or takes away points

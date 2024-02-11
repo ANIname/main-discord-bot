@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction } from 'discord.js'
 
-export * from './data'
+export const commandName = 'dice'
 
 /**
  * Rolls a dice
