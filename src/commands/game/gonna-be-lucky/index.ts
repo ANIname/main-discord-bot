@@ -11,7 +11,7 @@ const gameTimeOut: GameTimeOut = {}
 
 export const commandTimeout = 1000 * 60 * 60 // 1 hour
 
-export const commandName = 'gonna-be-lucky-test'
+export const commandName = 'gonna-be-lucky'
 
 /**
  * Generates a random event and gives or takes away points
