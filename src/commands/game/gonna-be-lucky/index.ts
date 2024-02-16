@@ -3,16 +3,15 @@ import { ChatInputCommandInteraction, InteractionResponse, Message } from 'disco
 import { updateGameData }                 from '../../../../services/knex/base-queries/game-data'
 import { getUserMainGameDataOrInsertNew } from '../../../../services/knex/base-queries/user'
 
-import generateEvent       from './generate-event'
-import replyThatNeedToWait from './reply-that-need-to-wait'
-import replyWithEvent      from './reply-with-event'
-import { GameTimeOut }     from './types.d'
-
-const timeOut = 1000 * 60 * 60 // 1 hour
+import generateEvent   from './generate-event'
+import replyWithEvent  from './reply-with-event'
+import { GameTimeOut } from './types.d'
 
 const gameTimeOut: GameTimeOut = {}
 
-export const commandName = 'gonna-be-lucky'
+export const commandTimeout = 1000 * 60 * 60 // 1 hour
+
+export const commandName = 'gonna-be-lucky-test'
 
 /**
  * Generates a random event and gives or takes away points
@@ -21,10 +20,6 @@ export const commandName = 'gonna-be-lucky'
  */
 export async function execute(interaction: ChatInputCommandInteraction): Promise<InteractionResponse<boolean> | Message<boolean>> {
   const userDiscordId = interaction.user.id
-  const timeOutEnd    = gameTimeOut[userDiscordId] as Date | undefined
-  const needToWait    = timeOutEnd && Date.now() - timeOutEnd.getTime() < timeOut
-
-  if (needToWait) return replyThatNeedToWait(interaction, timeOut, timeOutEnd)
 
   const [game, event] = await Promise.all([
     getUserMainGameDataOrInsertNew({ discordId: userDiscordId }, 'gonnaBeLucky'),
