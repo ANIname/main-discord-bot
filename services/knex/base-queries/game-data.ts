@@ -1,8 +1,8 @@
 import { pascal as pascalCase } from 'case'
-import camelCase from 'lodash/camelCase'
-import { v4 as uuid } from 'uuid'
+import camelCase                from 'lodash/camelCase'
+import { v4 as uuid }           from 'uuid'
 
-import knex from '..'
+import knex                                       from '..'
 import { GameTitle, MainGameData, MainGameEvent } from '../types.d'
 
 /**
@@ -61,7 +61,7 @@ export async function getMainGameDataOrInsertNew(userId: string, title: GameTitl
  * @returns {Promise<void>} - Promise
  */
 export async function updateGameData(foundGame: MainGameData, event: MainGameEvent, setPoints = false) {
-  const gameName = pascalCase(`Game-${foundGame.title}`)
+  const gameName      = pascalCase(`Game-${foundGame.title}`)
   const gameReference = camelCase(`game-${foundGame.title}-id`)
 
   const points = (setPoints) ? event.points : foundGame.points + event.points
