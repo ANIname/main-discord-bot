@@ -1,15 +1,16 @@
-import { Client, Snowflake } from 'discord.js'
+import type { Client, Guild, Snowflake, TextChannel } from 'discord.js'
 
-import { commands, commandsLastExecutionTimes }        from '../commands'
-import { CommandLastExecutionTimes, InputInteraction } from '../commands/types.d'
+import type { CommandLastExecutionTimes, InputInteraction } from '../commands/types.d'
+
+import { commands, commandsLastExecutionTimes } from '../commands'
 
 /**
  * Emitted when an interaction is created
- * @param {Client} _ - Discord Client
+ * @param {Client} client - Discord Client
  * @param {InputInteraction} interaction - Discord Interaction
  * @returns {Promise<void>} - Promise
  */
-export default async function interactionCreate(_: Client, interaction: InputInteraction): Promise<void> {
+export default async function interactionCreate(client: Client, interaction: InputInteraction): Promise<void> {
   const command                   = commands[interaction.commandName]
   const commandLastExecutionTimes = commandsLastExecutionTimes[interaction.commandName]
   
@@ -32,8 +33,20 @@ export default async function interactionCreate(_: Client, interaction: InputInt
     else setCommandLastExecutionTime(commandLastExecutionTimes, interaction.user.id)
   }
 
-  // If all checks passed then execute the command
-  await command.execute(interaction)
+  try {
+    // If all checks passed then execute the command
+    await command.execute(interaction)
+  } catch (error) {
+    const guild            = await client.guilds.cache.first() as Guild
+    const channelForErrors = await guild.channels.cache.find(channel => channel.name === 'ошиб-очка') as TextChannel
+
+    await channelForErrors.send(
+      `Ошибка при выполнении команды: ${interaction.commandName} от пользователя: ${interaction.user.tag}.` +
+      `\nОшибка: ${JSON.stringify(error), undefined, 2}`
+    )
+
+    throw error
+  }
 }
 
 /**
