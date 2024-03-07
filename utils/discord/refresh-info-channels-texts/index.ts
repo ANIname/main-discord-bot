@@ -1,20 +1,35 @@
 import { Guild, ThreadChannel, TextChannel } from 'discord.js'
-import Promise from 'bluebird'
+import Promise                               from 'bluebird'
 
-import data from './data'
-import { ChannelData, Language } from './types'
+import data                      from './data'
+import { ChannelData, Language } from './types.d'
 
+/**
+ * Refreshes info channels texts
+ * @param {Guild} guild - Discord Guild
+ * @returns {Promise<void>}
+ */
 export default function refreshInfoChannelsTexts (guild: Guild) {
   return Promise.each(Object.keys(data), async (channelName) => {
     const channelData = data[channelName] as ChannelData
 
     const mainChannel = await guild.channels.cache.find(({ name }) => name === channelData.names.main) as TextChannel
-    const threads = (await mainChannel.threads.fetch()).threads.map((thread) => thread)
 
-    if (threads.length !== Object.keys(channelData.names).length - 1) {
-      await Promise.each(threads, (thread) => thread.delete())
+    const fetchedArchivedThreads = await mainChannel.threads.fetchArchived()
+    const archievedThreads       = fetchedArchivedThreads.threads.map((thread) => thread)
 
-      await mainChannel.bulkDelete(100)
+    await Promise.each(archievedThreads, (thread) => thread.setArchived(false))
+    
+    const fetchedActiveThreads = await mainChannel.threads.fetch()
+    const activeThreads        = fetchedActiveThreads.threads.map((thread) => thread)
+
+    const fetchedMessages = await mainChannel.messages.fetch()
+    const messages        = fetchedMessages.map((message) => message)
+
+    if (activeThreads.length !== Object.keys(channelData.names).length - 1) {
+      await Promise.each(activeThreads, (thread) => thread.delete())
+
+      await Promise.each(messages, (message) => message.delete())
 
       await mainChannel.send(channelData.greatings.content)
     }
@@ -28,17 +43,19 @@ export default function refreshInfoChannelsTexts (guild: Guild) {
 
       if (!thread) thread = await mainChannel.threads.create({ name: channelData.names[language] })
 
-      const messages = (await thread.messages.fetch()).map((message) => message).reverse()
+      const fetchedMessages = await thread.messages.fetch()
+
+      const messages = fetchedMessages.map((message) => message).reverse()
 
       if (messages.length > messagesContents.length) {
         await thread.bulkDelete(messages.length - messagesContents.length)
       }
 
       await Promise.each(messagesContents.reverse(), async (messageContent, messageContentIndex: number) => {
-        const existingMessage = messages[messageContentIndex]
+        const existingMessage   = messages[messageContentIndex]
         const newMessageContent = messageContent.content
 
-        const isMessageExists = !!existingMessage
+        const isMessageExists         = !!existingMessage
         const isMessageContentChanged = existingMessage?.content !== newMessageContent
 
         if (!isMessageExists) await thread.send(newMessageContent)
