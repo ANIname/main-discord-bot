@@ -13,7 +13,6 @@
     "unicorn",
     "eslint-comments",
     "optimize-regex",
-    "no-use-extend-native",
     "simple-import-sort",
     "align-import",
     "align-assignments"
@@ -30,8 +29,7 @@
     "plugin:promise/recommended",
     "plugin:unicorn/recommended",
     "plugin:eslint-comments/recommended",
-    "plugin:optimize-regex/recommended",
-    "plugin:no-use-extend-native/recommended"
+    "plugin:optimize-regex/recommended"
   ],
 
   "rules": {
@@ -50,6 +48,8 @@
 
     "unicorn/prefer-top-level-await": "off",
     "unicorn/no-array-for-each": "off",
+
+    "unicorn/no-unreadable-array-destructuring": "warn",
 
     "align-assignments/align-assignments": [2]
   },

@@ -1,9 +1,11 @@
+import path from 'node:path'
+
 import { globSync } from 'glob'
-import path from 'path'
 
-import { Data } from './types'
+import { Data } from './types.d'
 
-export const rootFolderPath  = path.join(__dirname, '../../../')
+ // eslint-disable-next-line unicorn/prefer-module
+export const rootFolderPath = path.join(__dirname, '../../../')
 export const staticFilesPath = globSync(path.join('static/channels-info/', '**', '*.{md,json}'))
 
 export const defaultNames = { main: '', en: '', ua: '', ru: '' }

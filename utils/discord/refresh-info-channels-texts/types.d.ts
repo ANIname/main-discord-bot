@@ -1,11 +1,6 @@
 export interface Data {
   [channelName: string]: {
-    names: {
-      main: string
-      en: string
-      ua: string
-      ru: string
-    }
+    names: ChannelsNames
     greatings: {
       content: string
     }
@@ -13,6 +8,13 @@ export interface Data {
       [lang in Language]: { content: string }[]
     }
   }
+}
+
+export interface ChannelsNames {
+  main: string
+  en: string
+  ua: string
+  ru: string
 }
 
 export type ChannelData = Data[ChannelName]
