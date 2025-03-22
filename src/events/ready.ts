@@ -1,9 +1,9 @@
 import { Client } from 'discord.js'
 
-import cronAddDailyPointsToMembers from '../../utils/discord/cron-add-daily-points-to-members'
-import customHandler               from '../../utils/discord/custom-handler'
-import refreshInfoChannelsTexts    from '../../utils/discord/refresh-info-channels-texts'
-// import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members-with-database'
+import cronAddDailyPointsToMembers  from '../../utils/discord/cron-add-daily-points-to-members'
+import customHandler                from '../../utils/discord/custom-handler'
+import refreshInfoChannelsTexts     from '../../utils/discord/refresh-info-channels-texts'
+import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members-with-database'
 
 /**
  * Emitted when the client becomes ready to start working
@@ -19,7 +19,7 @@ export default async function ready (client: Client) {
 
   await Promise.all([
     refreshInfoChannelsTexts(guild),
-    // syncGuildMembersWithDatabase(guild),
+    syncGuildMembersWithDatabase(guild),
     cronAddDailyPointsToMembers(guild),
     customHandler(client)
   ])
