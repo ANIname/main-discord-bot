@@ -18,6 +18,7 @@
     "noUnusedParameters": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
+    "skipLibCheck": true,
 
     /* Modules */
     "module": "commonjs",
@@ -36,5 +37,5 @@
     "forceConsistentCasingInFileNames": true
   },
 
-  "exclude": ["node_modules", "dist", "**/*.js", "**/*.mjs"],
+  "exclude": ["node_modules/*", "dist", "**/*.js", "**/*.mjs"],
 }
