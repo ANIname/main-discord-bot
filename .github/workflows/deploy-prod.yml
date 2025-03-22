@@ -33,7 +33,7 @@ jobs:
             export POSTGRES_USER="${{ secrets.POSTGRES_USER }}"
             export POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}"
             export POSTGRES_DATABASE="${{ secrets.POSTGRES_DATABASE }}"
-            export POSTGRES_URL="${{ secrets.POSTGRES_URL }}"
+            export ANINAME_POSTGRES_URL="${{ secrets.ANINAME_POSTGRES_URL }}"
 
             cd main-discord-bot
             git pull
