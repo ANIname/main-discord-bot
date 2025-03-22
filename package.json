@@ -40,7 +40,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "eslint-plugin-sonarjs": "^3.0.2",
     "eslint-plugin-unicorn": "^53.0.0",
-    "inquirer": "^9.2.22",
+    "inquirer": "^8.2.6",
     "pm2": "^5.4.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",

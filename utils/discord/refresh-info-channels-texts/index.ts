@@ -9,8 +9,10 @@ import { ChannelData, Language } from './types.d'
  * @param {Guild} guild - Discord Guild
  * @returns {Promise<void>}
  */
-export default function refreshInfoChannelsTexts (guild: Guild) {
-  return Promise.each(Object.keys(data), async (channelName) => {
+export default async function refreshInfoChannelsTexts (guild: Guild) {
+  console.time('refreshInfoChannelsTexts')
+
+  const result = await Promise.each(Object.keys(data), async (channelName) => {
     const channelData = data[channelName] as ChannelData
 
     const mainChannel = await guild.channels.cache.find(({ name }) => name === channelData.names.main) as TextChannel
@@ -63,4 +65,8 @@ export default function refreshInfoChannelsTexts (guild: Guild) {
       })
     })
   })
+
+  console.timeEnd('refreshInfoChannelsTexts')
+
+  return result
 }
