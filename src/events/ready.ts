@@ -17,6 +17,8 @@ export default async function ready (client: Client) {
 
   console.log(`Logged in as ${client.user?.tag}!`)
 
+  console.log('ANINAME_POSTGRES_URL', process.env.ANINAME_POSTGRES_URL)
+
   await Promise.all([
     refreshInfoChannelsTexts(guild),
     syncGuildMembersWithDatabase(guild),
