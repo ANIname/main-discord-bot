@@ -22,7 +22,7 @@ module.exports = {
       POSTGRES_USER,
       POSTGRES_PASSWORD,
       POSTGRES_DATABASE,
-      POSTGRES_URL
+      ANINAME_POSTGRES_URL
     }
   }]
 }
