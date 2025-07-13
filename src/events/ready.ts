@@ -18,6 +18,7 @@ export default async function ready (client: Client) {
   console.log(`Logged in as ${client.user?.tag}!`)
 
   console.log('ANINAME_POSTGRES_URL', process.env.ANINAME_POSTGRES_URL)
+  console.log('POSTGRES_DATABASE', process.env.POSTGRES_DATABASE)
 
   await Promise.all([
     refreshInfoChannelsTexts(guild),
