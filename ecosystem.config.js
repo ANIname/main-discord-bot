@@ -6,7 +6,8 @@ const {
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_DATABASE,
-  POSTGRES_URL
+  POSTGRES_URL,
+  ANINAME_POSTGRES_URL
 } = process.env
 
 module.exports = {
