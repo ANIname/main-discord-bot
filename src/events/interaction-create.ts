@@ -33,23 +33,7 @@ export default async function interactionCreate(client: Client, interaction: Inp
     else setCommandLastExecutionTime(commandLastExecutionTimes, interaction.user.id)
   }
 
-  try {
-    // If all checks passed then execute the command
-    await command.execute(interaction)
-  } catch (error) {
-    if (error instanceof Error) {
-      const guild            = await client.guilds.cache.first() as Guild
-      const channelForErrors = await guild.channels.cache.find(channel => channel.name === 'ошиб-очка') as TextChannel
-  
-      await channelForErrors.send(
-        `Ошибка при выполнении команды: ${interaction.commandName} от пользователя: ${interaction.user.tag}.` +
-        `\nТекст ошибки: ${error.message}` +
-        `\nСтек вызовов: ${error.stack}`
-      )
-    }
-
-    throw error
-  }
+  await command.execute(interaction)
 }
 
 /**
