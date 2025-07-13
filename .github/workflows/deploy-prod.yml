@@ -32,7 +32,7 @@ jobs:
             export POSTGRES_USER="${{ secrets.POSTGRESQL_USERNAME }}"
             export POSTGRES_PASSWORD="${{ secrets.POSTGRESQL_PASSWORD }}"
             export POSTGRES_DATABASE="${{ secrets.POSTGRESQL_DATABASE }}"
-            export ANINAME_POSTGRES_URL= "postgresql://${{ secrets.POSTGRESQL_USERNAME }}:${{ secrets.POSTGRESQL_PASSWORD }}@${{ secrets.SERVER_HOST }}:${{ secrets.POSTGRESQL_PORT }}/${{ secrets.POSTGRESQL_DATABASE }}"
+            export ANINAME_POSTGRES_URL="postgresql://${{ secrets.POSTGRESQL_USERNAME }}:${{ secrets.POSTGRESQL_PASSWORD }}@${{ secrets.SERVER_HOST }}:${{ secrets.POSTGRESQL_PORT }}/${{ secrets.POSTGRESQL_DATABASE }}"
 
             if [ ! -d "main-discord-bot" ]; then
               echo "🔍 Main discord bot not found, cloning..."
