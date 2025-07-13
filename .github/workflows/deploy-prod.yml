@@ -36,15 +36,29 @@ jobs:
             export ANINAME_POSTGRES_URL= "postgresql://${{ secrets.POSTGRESQL_USERNAME }}:${{ secrets.POSTGRESQL_PASSWORD }}@${{ secrets.SERVER_HOST }}:${{ secrets.POSTGRESQL_PORT }}/${{ secrets.POSTGRESQL_DATABASE }}"
 
             if [ ! -d "main-discord-bot" ]; then
-              echo "Cloning main-discord-bot"
+              echo "🔍 Main discord bot not found, cloning..."
               git clone https://github.com/ANIname/main-discord-bot.git
             fi
+
+            echo "⬇️ Pulling main discord bot..."
             cd main-discord-bot || exit 1
             git pull
+
+            echo "📦 Installing dependencies..."
             npm install --legacy-peer-deps
+
+            echo "🏗️ Building..."
             rm -rf dist
             npx tsc
+
+            echo "📋 Copying static files..."
             cp -R static dist
+
+            echo "🔧 Generating Prisma client..."
             curl -o dist/services/prisma/schema.prisma https://raw.githubusercontent.com/ANIname/architecture/prod/db/postgresql/schema.prisma
             npx prisma generate --schema=./dist/services/prisma/schema.prisma
+
+            echo "🔄 Restarting/Starting PM2..."
             npx pm2 reload ecosystem.config.js --update-env || npx pm2 start ecosystem.config.js
+
+            echo "✅ Deployed successfully!"
