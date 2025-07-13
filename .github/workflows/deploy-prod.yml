@@ -29,11 +29,11 @@ jobs:
           script: |
             export DISCORD_BOT_TOKEN="${{ secrets.DISCORD_BOT_TOKEN }}"
             export OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
-            export POSTGRES_HOST="${{ secrets.POSTGRES_HOST }}"
-            export POSTGRES_USER="${{ secrets.POSTGRES_USER }}"
-            export POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}"
-            export POSTGRES_DATABASE="${{ secrets.POSTGRES_DATABASE }}"
-            export ANINAME_POSTGRES_URL="${{ secrets.ANINAME_POSTGRES_URL }}"
+            export POSTGRES_HOST="${{ secrets.SERVER_HOST }}"
+            export POSTGRES_USER="${{ secrets.POSTGRESQL_USERNAME }}"
+            export POSTGRES_PASSWORD="${{ secrets.POSTGRESQL_PASSWORD }}"
+            export POSTGRES_DATABASE="${{ secrets.POSTGRESQL_DATABASE }}"
+            export ANINAME_POSTGRES_URL= "postgresql://${{ secrets.POSTGRESQL_USERNAME }}:${{ secrets.POSTGRESQL_PASSWORD }}@${{ secrets.SERVER_HOST }}:${{ secrets.POSTGRESQL_PORT }}/${{ secrets.POSTGRESQL_DATABASE }}"
 
             cd main-discord-bot
             git pull
