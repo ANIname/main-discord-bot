@@ -35,7 +35,11 @@ jobs:
             export POSTGRES_DATABASE="${{ secrets.POSTGRESQL_DATABASE }}"
             export ANINAME_POSTGRES_URL= "postgresql://${{ secrets.POSTGRESQL_USERNAME }}:${{ secrets.POSTGRESQL_PASSWORD }}@${{ secrets.SERVER_HOST }}:${{ secrets.POSTGRESQL_PORT }}/${{ secrets.POSTGRESQL_DATABASE }}"
 
-            cd main-discord-bot
+            if [ ! -d "main-discord-bot" ]; then
+              echo "Cloning main-discord-bot"
+              git clone https://github.com/ANIname/main-discord-bot.git
+            fi
+            cd main-discord-bot || exit 1
             git pull
             npm install --legacy-peer-deps
             rm -rf dist
