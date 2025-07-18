@@ -29,10 +29,10 @@ jobs:
           script: |
             export DISCORD_BOT_TOKEN="${{ secrets.DISCORD_BOT_TOKEN }}"
             export DISCORD_BOT_OPEN_AI_API_KEY="${{ secrets.DISCORD_BOT_OPEN_AI_API_KEY }}"
-            export POSTGRES_HOST="${{ secrets.SERVER_HOST }}"
-            export POSTGRES_USER="${{ secrets.POSTGRESQL_USERNAME }}"
-            export POSTGRES_PASSWORD="${{ secrets.POSTGRESQL_PASSWORD }}"
-            export POSTGRES_DATABASE="${{ secrets.POSTGRESQL_DATABASE }}"
+            export SERVER_HOST="${{ secrets.SERVER_HOST }}"
+            export POSTGRESQL_USERNAME="${{ secrets.POSTGRESQL_USERNAME }}"
+            export POSTGRESQL_PASSWORD="${{ secrets.POSTGRESQL_PASSWORD }}"
+            export POSTGRESQL_DATABASE="${{ secrets.POSTGRESQL_DATABASE }}"
             export ANINAME_POSTGRES_URL="postgresql://${{ secrets.POSTGRESQL_USERNAME }}:${{ secrets.POSTGRESQL_PASSWORD }}@${{ secrets.SERVER_HOST }}:${{ secrets.POSTGRESQL_PORT }}/${{ secrets.POSTGRESQL_DATABASE }}"
 
             if [ ! -d "main-discord-bot" ]; then
