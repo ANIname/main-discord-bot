@@ -10,12 +10,14 @@ import syncGuildMembersWithDatabase from '../../utils/discord/sync-guild-members
  * @param {Client} client - Discord Client
  */
 export default async function ready (client: Client) {
+  console.time('🚀 Preparing bot to start working')
+
   const guild = client.guilds.cache.first()
 
   if (!guild)       throw new Error('No guild found')
   if (!client.user) throw new Error('Bot is not logged in')
-
-  console.log(`Logged in as ${client.user?.tag}!`)
+  
+  console.timeLog('🚀 Preparing bot to start working', `Logged in as ${client.user?.tag}!`)
 
   await Promise.all([
     refreshInfoChannelsTexts(guild),
@@ -23,6 +25,8 @@ export default async function ready (client: Client) {
     cronAddDailyPointsToMembers(guild),
     customHandler(client)
   ])
-  
-  console.log(`${client.user?.username} bot is ready!`)
+
+  console.timeLog('🚀 Preparing bot to start working', `${client.user?.username} bot is ready!`)
+
+  console.timeEnd('🚀 Preparing bot to start working')
 }
