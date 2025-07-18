@@ -39,17 +39,24 @@ export function updateEmbedToGameFinished (embed: EmbedBuilder, interactionOptio
 
   removeEmptySpace(embed)
 
-  winners.forEach((winner, index) => (index === 0)
-    ? embed.addFields({ name: winners.length > 1 ? 'Победители:' : 'Победивший игрок:', value: `<@${winner.discordId}>`, inline: true })
-    : embed.addFields({ name: '\u200B', value: `<@${winner.discordId}>`, inline: true })
-  )
+  for (const [index, winner] of winners.entries()) {
+    if (index === 0) {
+      embed.addFields({ name: winners.length > 1 ? 'Победители:' : 'Победивший игрок:', value: `<@${winner.discordId}>`, inline: true })
+    } else {
+      embed.addFields({ name: '\u200B', value: `<@${winner.discordId}>`, inline: true })
+    }
+  }
 
   removeEmptySpace(embed)
 
-  losers.forEach((loser, index) => (index === 0)
-    ? embed.addFields({ name: losers.length > 1 ? 'Проигравшие:' : 'Проигравший игрок:', value: `<@${loser.discordId}>`, inline: true })
-    : embed.addFields({ name: '\u200B', value: `<@${loser.discordId}>`, inline: true })
-  )
+  for (const [index, loser] of losers.entries()) {
+    if (index === 0) {
+      embed.addFields({ name: losers.length > 1 ? 'Проигравшие:' : 'Проигравший игрок:', value: `<@${loser.discordId}>`, inline: true })
+    } else {
+      embed.addFields({ name: '\u200B', value: `<@${loser.discordId}>`, inline: true })
+    }
+  }
+  
 
   removeEmptySpace(embed)
 
