@@ -1,13 +1,13 @@
-const { POSTGRES_HOST, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DATABASE } = process.env
+const { SERVER_HOST, POSTGRESQL_PORT, POSTGRESQL_USERNAME, POSTGRESQL_PASSWORD, POSTGRESQL_DATABASE } = process.env
 
 const knexConfig = {
   client: 'pg',
   connection: {
-    host: POSTGRES_HOST,
-    port: 5432,
-    user: POSTGRES_USER,
-    password: POSTGRES_PASSWORD,
-    database: POSTGRES_DATABASE,
+    host: SERVER_HOST,
+    port: Number(POSTGRESQL_PORT),
+    user: POSTGRESQL_USERNAME,
+    password: POSTGRESQL_PASSWORD,
+    database: POSTGRESQL_DATABASE,
     ssl: true
   },
   pool: { min: 1, max: 10 },
