@@ -1,5 +1,7 @@
 import type { ChatInputCommandInteraction } from 'discord.js'
 
+import type { ChatCompletionChunk } from 'openai/resources/chat/completions'
+
 import { upsertUser }    from '../../../../services/prisma/base-queries/user'
 import { saveGameEvent } from '../../../../services/prisma/base-queries/game'
 
@@ -16,11 +18,13 @@ export const commandName = 'gonna-be-lucky'
 export async function execute(interaction: ChatInputCommandInteraction): Promise<void> {
   const userDiscordId = interaction.user.id
 
-  const [eventStream, userId] = await Promise.all([
+  const results = await Promise.all([
     generateEvent(interaction),
     upsertUser(userDiscordId),
     interaction.deferReply(),
   ])
+  
+  const [eventStream, userId] = results as [AsyncIterable<ChatCompletionChunk>, string, unknown]
 
   const event = await replyWithEvent(interaction, eventStream)
 

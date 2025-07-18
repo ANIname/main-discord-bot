@@ -1,17 +1,16 @@
 import type { ChatInputCommandInteraction } from 'discord.js'
 
-import type { Stream as ChatStream } from 'openai/streaming.d'
-import type OpenAiTypes              from 'openai/index.d'
+import type { ChatCompletionChunk } from 'openai/resources/chat/completions'
 
 import type { GameEvent } from './types'
 
 /**
  * Reply to user
  * @param {ChatInputCommandInteraction} interaction - Discord Interaction
- * @param {ChatStream<OpenAiTypes.ChatCompletionChunk>} eventStream - Event stream
+ * @param {AsyncIterable<ChatCompletionChunk>} eventStream - Event stream
  * @returns {Promise<GameEvent>} - Promise with game event
  */
-export default async function replyWithEvent (interaction: ChatInputCommandInteraction, eventStream: ChatStream<OpenAiTypes.ChatCompletionChunk>): Promise<GameEvent> {
+export default async function replyWithEvent (interaction: ChatInputCommandInteraction, eventStream: AsyncIterable<ChatCompletionChunk>): Promise<GameEvent> {
   let counter         = 0
   let ChatGPTResponse = ''
   let messageToSend   = ''
