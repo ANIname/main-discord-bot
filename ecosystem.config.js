@@ -1,6 +1,6 @@
 const {
   DISCORD_BOT_TOKEN,
-  OPENAI_API_KEY,
+  DISCORD_BOT_OPEN_AI_API_KEY,
 
   POSTGRES_HOST,
   POSTGRES_USER,
@@ -17,7 +17,7 @@ module.exports = {
     restart_delay: 1000 * 60 * 1, // Every 1 minutes
     env: {
       DISCORD_BOT_TOKEN,
-      OPENAI_API_KEY,
+      DISCORD_BOT_OPEN_AI_API_KEY,
       
       POSTGRES_HOST,
       POSTGRES_USER,

@@ -28,7 +28,7 @@ jobs:
           port: 22
           script: |
             export DISCORD_BOT_TOKEN="${{ secrets.DISCORD_BOT_TOKEN }}"
-            export OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
+            export DISCORD_BOT_OPEN_AI_API_KEY="${{ secrets.DISCORD_BOT_OPEN_AI_API_KEY }}"
             export POSTGRES_HOST="${{ secrets.SERVER_HOST }}"
             export POSTGRES_USER="${{ secrets.POSTGRESQL_USERNAME }}"
             export POSTGRES_PASSWORD="${{ secrets.POSTGRESQL_PASSWORD }}"
