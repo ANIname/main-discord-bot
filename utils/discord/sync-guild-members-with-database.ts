@@ -11,7 +11,7 @@ import knex from '../../services/knex'
  * @returns {Promise<void>}
  */
 export default async function syncGuildMembersWithDatabase (guild: Guild) {
-  console.time('syncGuildMembersWithDatabase')
+  console.time('🔄 syncGuildMembersWithDatabase')
 
   const guildMembers    = await guild.members.fetch()
   const guildMembersIds = guildMembers.map(({ id }) => id)
@@ -31,7 +31,7 @@ export default async function syncGuildMembersWithDatabase (guild: Guild) {
     ? knex('User').insert(usersToCreate)
     : Promise.resolve()
 
-  console.timeEnd('syncGuildMembersWithDatabase')
+  console.timeEnd('🔄 syncGuildMembersWithDatabase')
 
   return result
 }

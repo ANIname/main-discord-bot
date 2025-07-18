@@ -10,7 +10,7 @@ import { ChannelData, Language } from './types.d'
  * @returns {Promise<void>}
  */
 export default async function refreshInfoChannelsTexts (guild: Guild) {
-  console.time('refreshInfoChannelsTexts')
+  console.time('🔄 refreshInfoChannelsTexts')
 
   const result = await Promise.each(Object.keys(data), async (channelName) => {
     const channelData = data[channelName] as ChannelData
@@ -66,7 +66,7 @@ export default async function refreshInfoChannelsTexts (guild: Guild) {
     })
   })
 
-  console.timeEnd('refreshInfoChannelsTexts')
+  console.timeEnd('🔄 refreshInfoChannelsTexts')
 
   return result
 }
