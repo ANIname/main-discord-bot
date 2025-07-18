@@ -4,6 +4,8 @@ export type InputInteraction = ChatInputCommandInteraction<CacheType> | ContextM
 
 export type CommandName    = string
 export type UserDiscordId  = Snowflake
+
+// eslint-disable-next-line no-unused-vars
 export type CommandHandler = (interaction: InputInteraction) => Promise<void>
 
 export interface Command {
