@@ -1,4 +1,4 @@
-import type { Client, Guild, Snowflake, TextChannel } from 'discord.js'
+import type { Client, Snowflake } from 'discord.js'
 
 import type { CommandLastExecutionTimes, InputInteraction } from '../commands/types.d'
 
@@ -6,11 +6,11 @@ import { commands, commandsLastExecutionTimes } from '../commands'
 
 /**
  * Emitted when an interaction is created
- * @param {Client} client - Discord Client
+ * @param {Client} _ - Discord Client
  * @param {InputInteraction} interaction - Discord Interaction
  * @returns {Promise<void>} - Promise
  */
-export default async function interactionCreate(client: Client, interaction: InputInteraction): Promise<void> {
+export default async function interactionCreate(_: Client, interaction: InputInteraction): Promise<void> {
   const command                   = commands[interaction.commandName]
   const commandLastExecutionTimes = commandsLastExecutionTimes[interaction.commandName]
   
